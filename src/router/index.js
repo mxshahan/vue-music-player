@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
+import Home from "../views/PageHome.vue";
 
 Vue.use(VueRouter);
 
@@ -11,42 +11,42 @@ const routes = [
     component: Home
   },
   {
-    path: "/about",
-    name: "About",
+    path: "/pie-chart",
+    name: "PieChart",
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ "../views/About.vue")
+    component: () => import(/* webpackChunkName: "about" */ "../views/PagePieChart.vue")
   },
   {
     path: "/inicio-jornada",
     name: "InicioJornada",
-    component: () => import("../views/InicioJornada.vue")
+    component: () => import("../views/PageInicioJornada.vue")
   },
   {
     path: "/turnos-partidos",
     name: "TurnosPartidos",
-    component: () => import("../views/InicioJornada.vue")
+    component: () => import("../views/PageInicioJornada.vue")
   },
   {
     path: "/absentismos-programados",
     name: "AbsentismosProgramados",
-    component: () => import("../views/AbsentismosProgramados.vue")
+    component: () => import("../views/PageAbsentismosProgramados.vue")
   },
   {
     path: "/horas-extra",
     name: "HorasExtra",
-    component: () => import("../views/HorasExtra.vue")
+    component: () => import("../views/PageHorasExtra.vue")
   },
   {
     path: "/horas-extra",
     name: "HorasExtra",
-    component: () => import("../views/HorasExtra.vue")
+    component: () => import("../views/PageHorasExtra.vue")
   },
   {
     path: "/inicio-con-absentismo-programado",
     name: "InicioConAbsentismoProgramado",
-    component: () => import("../views/InicioConAbsentismoProgramado.vue")
+    component: () => import("../views/PageInicioConAbsentismoProgramado.vue")
   }
 ];
 
