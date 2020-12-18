@@ -7,7 +7,12 @@
         :start-time="startTime"
         :end-time="endTime"
       />
-      <CardBody/>
+      <CardBody
+        :cliente="cliente"
+        :proyecto="proyecto"
+        :servicio="servicio"
+        :tarea="tarea"
+      />
       <TimerProgress />
     </v-card-text>
   </v-card>
@@ -49,9 +54,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-.play-btn-style {
-  border: 2px solid;
-}
-</style>

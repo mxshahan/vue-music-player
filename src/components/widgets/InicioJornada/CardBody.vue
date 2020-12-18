@@ -19,8 +19,9 @@
       </v-row>
     </v-col>
     <v-col cols="3" align-self="center" class="text-right pr-5">
-      <v-btn class="play-btn-style" icon outlined color="#1058FB">
-        <v-icon>mdi-play</v-icon>
+      <v-btn class="play-btn-style" :color="!play ? '#1058FB' : '#FB4E4E'" icon outlined @click="play = !play">
+        <v-icon v-if="!play">mdi-play</v-icon>
+        <v-icon v-else>mdi-stop</v-icon>
       </v-btn>
       <br />
       <v-btn icon>
@@ -46,6 +47,17 @@ export default {
     tarea: {
       type: Array
     }
+  },
+  data() {
+    return {
+      play: false
+    };
   }
 };
 </script>
+
+<style scoped>
+.play-btn-style {
+  border: 2px solid;
+}
+</style>
