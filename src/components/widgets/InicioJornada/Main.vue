@@ -15,6 +15,7 @@
       />
       <TimerProgress />
     </v-card-text>
+    <DialogFinalizarJordana/>
     <DialogParada/>
     <DialogIncidencia />
   </v-card>
@@ -26,10 +27,11 @@ import CardHeader from "@/components/widgets/InicioJornada/CardHeader";
 import CardBody from "@/components/widgets/InicioJornada/CardBody";
 import DialogParada from "@/components/widgets/InicioJornada/dialogs/DialogParada";
 import DialogIncidencia from "@/components/widgets/InicioJornada/dialogs/DialogIncidencia";
+import DialogFinalizarJordana from "@/components/widgets/InicioJornada/dialogs/DialogFinalizarJordana";
 
 export default {
   name: "InicioJornadaMain",
-  components: { DialogIncidencia, DialogParada, CardBody, CardHeader, TimerProgress },
+  components: { DialogFinalizarJordana, DialogIncidencia, DialogParada, CardBody, CardHeader, TimerProgress },
   props: {
     cardTitle: {
       type: String

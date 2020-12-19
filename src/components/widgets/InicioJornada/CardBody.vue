@@ -65,7 +65,7 @@
           </v-btn>
         </template>
         <v-list>
-          <v-list-item link>
+          <v-list-item link @click="showDialogFinalizarJordana()">
             <v-list-item-title>Finalizar jornada</v-list-item-title>
           </v-list-item>
           <v-list-item link @click="showDialogParada()">
@@ -124,6 +124,9 @@ export default {
     }
   },
   methods: {
+    showDialogFinalizarJordana(){
+      bus.$emit("toggleDialogFinalizarJordana", "someValue");
+    },
     showDialogParada(){
       bus.$emit("toggleDialogParada", "someValue");
     }

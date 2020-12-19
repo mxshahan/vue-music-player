@@ -31,10 +31,10 @@
       <v-card-actions>
         <v-row>
           <v-col align="center">
-            <v-btn outlined color="dattechs_black_3" class="font-weight-normal body-2 px-5 mx-2" text @click="dialog = false">
+            <v-btn outlined color="dattechs_black_3" class="text-capitalize font-weight-normal body-2 px-5 mx-2" text @click="dialog = false">
               Cancelar
             </v-btn>
-            <v-btn color="primary" class="font-weight-normal body-2 px-5 mx-2" @click="pauseTareaTimerAndCloseDialog()">
+            <v-btn color="primary" class="text-capitalize font-weight-normal body-2 px-5 mx-2" @click="pauseTareaTimerAndCloseDialog()">
               Aceptar
             </v-btn>
           </v-col>
