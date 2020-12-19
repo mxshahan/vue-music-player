@@ -1,5 +1,5 @@
 <template>
-  <v-card width="507" class="my-5 px-5 py-4">
+  <v-card width="507" class="my-5 px-5 py-4" :color="position === 0 ? 'white' : 'disabledCard'">
     <v-row>
       <v-col align="left">
         <span class="body-2">
@@ -47,6 +47,12 @@ import { bus } from "@/main";
 
 export default {
   name: "TareaCard",
+  props: {
+    position: {
+      type: Number,
+      required: true
+    }
+  },
   components: { TimerProgress },
   data() {
     return {

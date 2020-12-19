@@ -11,7 +11,9 @@
         :servicio="servicio"
         :tarea="tarea"
       />
-      <TareaCard v-if="$store.state.selectedTarea !== ''"/>
+      <div v-if="$store.state.selectedTarea !== ''">
+        <TareaCard v-for="(task, index) in startedTarea" :key="index" :position="index"/>
+      </div>
     </v-col>
   </v-row>
 </template>
@@ -43,7 +45,8 @@ export default {
       cliente: ["Telefónica", "IZO"],
       proyecto: ["Endesa CAT"],
       servicio: ["E-REDES"],
-      tarea: ["Auditoría", "Verificación", "Encuesta", "Emisión"]
+      tarea: ["Auditoría", "Verificación", "Encuesta", "Emisión"],
+      startedTarea: ["Verificación", "Encuesta"]
     };
   }
 };

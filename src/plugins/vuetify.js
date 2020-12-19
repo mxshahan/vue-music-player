@@ -14,9 +14,10 @@ export default new Vuetify({
         warning: "#FFC657",
         error: "#FB4E4E",
         success: "#43A047",
-        iconColor: '#A0A4A8',
+        iconColor: "#A0A4A8",
         textTitle: "#25282B",
-        disabled: '#CACCCF', // Divider & Borders, disabled
+        disabled: "#CACCCF", // Divider & Borders, disabled
+        disabledCard: "#F9F9FA", // Divider & Borders, disabled
         dattechs_black_2: "#52575C", // Tooltip
         dattechs_black_3: "#A0A4A8",
         dattechs_black_5: "#E8E8E8"
