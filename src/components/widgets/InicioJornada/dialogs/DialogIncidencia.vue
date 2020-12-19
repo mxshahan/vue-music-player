@@ -1,0 +1,88 @@
+<template>
+  <v-dialog v-model="dialog" persistent max-width="294">
+    <v-card>
+      <v-card-title>
+        <v-btn icon disabled outlined height="20" width="20" class="btn-style">
+          <v-icon small>mdi-pause</v-icon>
+        </v-btn>
+        <span class="ml-2 subtitle-1">Incidencia</span>
+      </v-card-title>
+      <v-card-text>
+        <v-select
+          v-model="selectedTipoDeIncidencia"
+          :items="items"
+          label="Tipo de incidencia"
+          append-icon="mdi-chevron-down"
+          class="body-2"
+          dense
+          outlined
+        >
+        </v-select>
+        <v-textarea v-model="comentarios" label="Comentarios" outlined class="body-2"> </v-textarea>
+        <div class="img-input-style py-1 px-2">
+          <v-btn class="pt-1" icon style="background-color: #CACCCF;">
+            <v-icon color="white">
+              mdi-camera-outline
+            </v-icon>
+          </v-btn>
+          <span class="caption ml-2">Seleccionar/arrastrar imagen</span>
+        </div>
+      </v-card-text>
+      <v-card-actions>
+        <v-row>
+          <v-col align="center">
+            <v-btn outlined color="dattechs_black_3" class="font-weight-normal body-2 px-5 mx-2" text @click="dialog = false">
+              Cancelar
+            </v-btn>
+            <v-btn color="primary" class="font-weight-normal body-2 px-5 mx-2" @click="pauseTareaTimerAndCloseDialog()">
+              Aceptar
+            </v-btn>
+          </v-col>
+        </v-row>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
+</template>
+
+<script>
+import { bus } from "@/main";
+
+export default {
+  name: "DialogIncidencia",
+  data() {
+    return {
+      dialog: false,
+      selectedTipoDeIncidencia: "",
+      comentarios:
+        "Minim enim excepteur dolore eu incididunt non reprehenderit deserunt nostruddeserunt elit. Labore enim dolore ex reprehenderit aliquip ut excepteur. ",
+      items: ["SIES"]
+    };
+  },
+  created() {
+    bus.$on("toggleDialogIncidencia", data => {
+      console.log("toggleDialogIncidencia--->>", data);
+      this.dialog = !this.dialog;
+    });
+  },
+  methods: {
+    pauseTareaTimerAndCloseDialog() {
+      bus.$emit("tareaTimerPaused", true);
+      this.dialog = false;
+    }
+  }
+};
+</script>
+
+<style scoped>
+.btn-style {
+  border: 2px solid;
+}
+
+.img-input-style {
+  width: 246px;
+  height: 48px;
+  border: 1px dashed #a0a4a8;
+  box-sizing: border-box;
+  border-radius: 4px;
+}
+</style>
