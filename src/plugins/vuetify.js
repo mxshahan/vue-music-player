@@ -15,6 +15,7 @@ export default new Vuetify({
         error: "#FB4E4E",
         success: "#43A047",
         iconColor: "#A0A4A8",
+        iconColorDarkGrey: "#777777",
         textTitle: "#25282B",
         disabled: "#CACCCF", // Divider & Borders, disabled
         disabledCard: "#F9F9FA", // Divider & Borders, disabled

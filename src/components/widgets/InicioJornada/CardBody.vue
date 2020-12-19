@@ -3,14 +3,7 @@
     <v-col>
       <v-row>
         <v-col class="py-0">
-          <v-select
-            v-model="selectedCliente"
-            :items="cliente"
-            label="Cliente"
-            append-icon="mdi-chevron-down"
-            dense
-            outlined
-          ></v-select>
+          <v-select v-model="selectedCliente" :items="cliente" label="Cliente" append-icon="mdi-chevron-down" dense outlined></v-select>
         </v-col>
         <v-col class="py-0">
           <v-select
@@ -53,15 +46,19 @@
       <v-menu rounded="rounded" offset-y>
         <template v-slot:activator="{ attrs, on }">
           <v-btn
+            v-if="!play"
             height="40"
             width="40"
             icon
             class="play-btn-style"
             :color="!play ? 'primary' : '#FB4E4E'"
             outlined
-            @click="play = !play">
-            <v-icon v-if="!play">mdi-play</v-icon>
-            <v-icon v-else v-bind="attrs" v-on="on">mdi-stop</v-icon>
+            @click="play = !play"
+          >
+            <v-icon>mdi-play</v-icon>
+          </v-btn>
+          <v-btn v-else height="40" width="40" icon class="play-btn-style" :color="!play ? 'primary' : '#FB4E4E'" outlined v-bind="attrs" v-on="on">
+            <v-icon>mdi-stop</v-icon>
           </v-btn>
         </template>
         <v-list>
@@ -109,6 +106,11 @@ export default {
       selectedTarea: ""
     };
   },
+  created() {
+    bus.$on("stopJordanaTimer", data => {
+      this.play = !data;
+    });
+  },
   watch: {
     selectedCliente(newValue) {
       this.$store.commit("UPDATE_SELECTED_CLIENTE", newValue);
@@ -124,10 +126,10 @@ export default {
     }
   },
   methods: {
-    showDialogFinalizarJordana(){
+    showDialogFinalizarJordana() {
       bus.$emit("toggleDialogFinalizarJordana", "someValue");
     },
-    showDialogParada(){
+    showDialogParada() {
       bus.$emit("toggleDialogParada", "someValue");
     }
   }
