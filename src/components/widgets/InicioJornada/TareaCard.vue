@@ -38,18 +38,16 @@
       </v-col>
     </v-row>
     <TimerProgress />
-    <DialogIncidencia />
   </v-card>
 </template>
 
 <script>
 import TimerProgress from "@/components/widgets/InicioJornada/TimerProgress";
-import DialogIncidencia from "@/components/widgets/InicioJornada/dialogs/DialogIncidencia";
 import { bus } from "@/main";
 
 export default {
   name: "TareaCard",
-  components: { DialogIncidencia, TimerProgress },
+  components: { TimerProgress },
   data() {
     return {
       play: false

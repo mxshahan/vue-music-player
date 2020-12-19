@@ -55,19 +55,20 @@ export default {
       selectedTipoDeIncidencia: "",
       comentarios:
         "Minim enim excepteur dolore eu incididunt non reprehenderit deserunt nostruddeserunt elit. Labore enim dolore ex reprehenderit aliquip ut excepteur. ",
-      items: ["SIES"]
+      items: ["SIES", "Médico", "Licencia permitida", "Formación", "Hora sindical", "Rehabilitación", "Otros motivos"]
     };
   },
   created() {
     bus.$on("toggleDialogIncidencia", data => {
       console.log("toggleDialogIncidencia--->>", data);
+      this.selectedTipoDeIncidencia = data;
       this.dialog = !this.dialog;
     });
   },
   methods: {
     pauseTareaTimerAndCloseDialog() {
       bus.$emit("tareaTimerPaused", true);
-      this.dialog = false;
+      this.dialog = !this.dialog;
     }
   }
 };
@@ -84,5 +85,9 @@ export default {
   border: 1px dashed #a0a4a8;
   box-sizing: border-box;
   border-radius: 4px;
+}
+.v-textarea textarea{
+  line-height: 0;
+  padding: 10px;
 }
 </style>
