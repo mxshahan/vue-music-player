@@ -4,30 +4,46 @@
       <InicioJornadaMain
         card-title="Inicio de jornada"
         date="09/4/2020"
-        start-time="09:00"
-        end-time="15:00"
+        :shifts="shifts"
+        :isStartWorkLate="isStartWorkLate"
         :cliente="cliente"
         :proyecto="proyecto"
         :servicio="servicio"
         :tarea="tarea"
       />
+      <TareaCard v-if="$store.state.selectedTarea !== ''"/>
     </v-col>
   </v-row>
 </template>
 
 <script>
 import InicioJornadaMain from "@/components/widgets/InicioJornada/Main";
+import TareaCard from "@/components/widgets/InicioJornada/TareaCard";
 
 export default {
   name: "InicioJornada",
-  components: { InicioJornadaMain },
+  components: { TareaCard, InicioJornadaMain },
   data() {
     return {
+      shifts: [
+        {
+          symbol: 'M',
+          symbolColor: '#7ACFEE',
+          startTime: "09:10",
+          endTime: "15:10"
+        },
+        {
+          symbol: 'T',
+          symbolColor: '#1197D8',
+          startTime: "16:00",
+          endTime: "18:00"
+        }
+      ],
+      isStartWorkLate: true,
       cliente: ["Telefónica", "IZO"],
       proyecto: ["Endesa CAT"],
       servicio: ["E-REDES"],
       tarea: ["Auditoría", "Verificación", "Encuesta", "Emisión"]
-
     };
   }
 };

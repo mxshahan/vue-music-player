@@ -9,44 +9,30 @@
         <v-icon small class="mr-1">mdi-calendar-blank-outline</v-icon>
         {{ date }}
       </v-btn>
-      <v-tooltip bottom color="#52575C">
+      <v-tooltip bottom color="dattechs_black_2">
         <template v-slot:activator="{ on, attrs }">
           <v-btn
             text
             small
-            :class="{ 'red--text': attrs['aria-expanded'] === 'true', 'grey--text': attrs['aria-expanded'] !== 'true' }"
+            :class="{ 'red--text': isStartWorkLate, 'grey--text': !isStartWorkLate }"
             v-bind="attrs"
             v-on="on"
           >
             <v-icon small class="mr-1">mdi-timelapse</v-icon>
-            {{ startTime }} - {{ endTime }}
+            {{ shifts[0].startTime }} - {{ shifts[0].endTime }}
           </v-btn>
         </template>
-        <div>
-          <span>
-            Horario habitual
-          </span>
-          <div>
-            <v-avatar size="16" color="#7ACFEE">
-              <span class="white--text" style="font-size: 8px;">M</span>
-            </v-avatar>
-            <span class="pl-1 caption">9:00-15:00</span>
-          </div>
-          <div>
-            <v-avatar size="16" color="#1197D8">
-              <span class="white--text" style="font-size: 8px;">T</span>
-            </v-avatar>
-            <span class="pl-1 caption">16:00 -18:00</span>
-          </div>
-        </div>
+        <HorarioHabitual :shifts="shifts"/>
       </v-tooltip>
     </v-col>
   </v-row>
 </template>
 
 <script>
+import HorarioHabitual from "@/components/widgets/InicioJornada/HorarioHabitual";
 export default {
   name: "CardHeader",
+  components: { HorarioHabitual },
   props: {
     cardTitle: {
       type: String
@@ -54,11 +40,11 @@ export default {
     date: {
       type: String
     },
-    startTime: {
-      type: String
+    shifts: {
+      type: Array
     },
-    endTime: {
-      type: String
+    isStartWorkLate: {
+      type: Boolean
     }
   }
 };

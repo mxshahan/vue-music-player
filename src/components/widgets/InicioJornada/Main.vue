@@ -4,8 +4,8 @@
       <CardHeader
         :card-title="cardTitle"
         :date="date"
-        :start-time="startTime"
-        :end-time="endTime"
+        :shifts="shifts"
+        :isStartWorkLate="isStartWorkLate"
       />
       <CardBody
         :cliente="cliente"
@@ -33,11 +33,11 @@ export default {
     date: {
       type: String
     },
-    startTime: {
-      type: String
+    shifts: {
+      type: Array
     },
-    endTime: {
-      type: String
+    isStartWorkLate: {
+      type: Boolean
     },
     cliente: {
       type: Array

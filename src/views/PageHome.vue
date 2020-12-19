@@ -2,9 +2,9 @@
   <div class="home">
     <h1 class="title">PAGES</h1>
     <ul>
-      <li>
+      <!-- <li>
         <v-btn link text class="text-decoration-none" to="/pie-chart">Pie Chart</v-btn>
-      </li>
+      </li>-->
       <li>
         <v-btn link text class="text-decoration-none" to="/inicio-jornada">Inicio jornada en remoto</v-btn>
       </li>
