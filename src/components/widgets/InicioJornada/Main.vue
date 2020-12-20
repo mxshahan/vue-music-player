@@ -13,7 +13,7 @@
         :servicio="servicio"
         :tarea="tarea"
       />
-      <TimerProgress />
+      <TimerProgress :is-over-time="isOverTime" />
     </v-card-text>
     <DialogFinalizarJordana/>
     <DialogParada/>
@@ -43,6 +43,9 @@ export default {
       type: Array
     },
     isStartWorkLate: {
+      type: Boolean
+    },
+    isOverTime: {
       type: Boolean
     },
     cliente: {

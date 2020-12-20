@@ -3,12 +3,12 @@
     <v-card>
       <v-card-title>
         <v-btn icon disabled height="20" width="20" class="btn-style">
-          <v-icon>mdi-stop-circle-outline</v-icon>
+          <v-img width="20" height="20" src="@/assets/icons/ic_parada.svg" />
         </v-btn>
-        <span class="ml-2 subtitle-1">Parada</span>
+        <span class="ml-2 subtitle-1 font-weight-bold">Parada</span>
       </v-card-title>
       <v-card-text>
-        <v-select v-model="selectedParada" :items="items" label="Motivo" append-icon="mdi-chevron-down" class="body-2" dense outlined>
+        <v-select class="body-2" v-model="selectedParada" :items="items" label="Motivo" append-icon="mdi-chevron-down" dense outlined>
         </v-select>
       </v-card-text>
     </v-card>

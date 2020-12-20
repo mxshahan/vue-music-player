@@ -71,10 +71,25 @@
         </v-list>
       </v-menu>
       <br />
-      <v-btn width="20" height="20" icon class="mt-2 pa-1" style="margin-right: 9px;">
-<!--        <v-icon color="#A0A4A8" small>mdi-menu</v-icon>-->
-        <v-img src="@/assets/icons/ic_menu.svg" />
-      </v-btn>
+      <v-tooltip bottom color="dattechs_black_2">
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            :disabled="$store.state.startedTarea.length < 2"
+            width="20"
+            height="20"
+            icon
+            class="mt-2 pa-1"
+            style="margin-right: 9px;"
+            @click="showHistorial()"
+            v-bind="attrs"
+            v-on="on"
+          >
+            <v-img v-if="$store.state.startedTarea.length < 2" src="@/assets/icons/ic_menu.svg" />
+            <v-img v-else src="@/assets/icons/ic_menu_active.svg" />
+          </v-btn>
+        </template>
+        <span>Historial</span>
+      </v-tooltip>
     </v-col>
   </v-row>
 </template>
@@ -124,6 +139,13 @@ export default {
     },
     selectedTarea(newValue) {
       this.$store.commit("UPDATE_SELECTED_TAREA", newValue);
+      this.$store.commit("UPDATE_STARTED_TAREA", {
+        cliente: this.selectedCliente,
+        proyecto: this.selectedProyecto,
+        servicio: this.selectedServicio,
+        tarea: this.selectedTarea,
+        status: "paused"
+      });
     }
   },
   methods: {
@@ -132,6 +154,9 @@ export default {
     },
     showDialogParada() {
       bus.$emit("toggleDialogParada", "someValue");
+    },
+    showHistorial() {
+      this.$store.commit("UPDATE_SHOW_HISTORY", !this.$store.state.showHistory);
     }
   }
 };

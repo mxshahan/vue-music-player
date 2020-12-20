@@ -1,10 +1,10 @@
 <template>
-  <v-card width="507" class="my-5 px-5 py-4" :color="position === 0 ? 'white' : 'disabledCard'">
+  <v-card width="507" class="my-5 px-5 py-4" :color="position === 0 ? 'white' : 'disabledCard'" v-if="position === 0 || $store.state.showHistory">
     <v-row>
       <v-col align="left">
         <span class="body-2">
-          {{ $store.state.selectedCliente }} / {{ $store.state.selectedProyecto }} / {{ $store.state.selectedServicio }} /
-          <span class="primary--text font-weight-bold">{{ $store.state.selectedTarea }}</span>
+          {{ tareaDetails.cliente }} / {{ tareaDetails.proyecto }} / {{ tareaDetails.servicio }} /
+          <span class="primary--text font-weight-bold">{{ tareaDetails.tarea }}</span>
         </span>
       </v-col>
       <v-col cols="2" class="pt-1">
@@ -48,6 +48,10 @@ import { bus } from "@/main";
 export default {
   name: "TareaCard",
   props: {
+    tareaDetails: {
+      type: Object,
+      required: true
+    },
     position: {
       type: Number,
       required: true

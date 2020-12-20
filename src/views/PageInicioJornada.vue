@@ -10,9 +10,10 @@
         :proyecto="proyecto"
         :servicio="servicio"
         :tarea="tarea"
+        :is-over-time="true"
       />
-      <div v-if="$store.state.selectedTarea !== ''">
-        <TareaCard v-for="(task, index) in startedTarea" :key="index" :position="index"/>
+      <div v-if="$store.state.selectedTarea !== null">
+        <TareaCard v-for="(task, index) in $store.state.startedTarea" :key="index" :tarea-details="task" :position="index" />
       </div>
     </v-col>
   </v-row>
@@ -29,24 +30,23 @@ export default {
     return {
       shifts: [
         {
-          symbol: 'M',
-          symbolColor: '#7ACFEE',
+          symbol: "M",
+          symbolColor: "#7ACFEE",
           startTime: "09:10",
           endTime: "15:10"
         },
         {
-          symbol: 'T',
-          symbolColor: '#1197D8',
+          symbol: "T",
+          symbolColor: "#1197D8",
           startTime: "16:00",
           endTime: "18:00"
         }
       ],
-      isStartWorkLate: false,
+      isStartWorkLate: true,
       cliente: ["Telefónica", "IZO"],
       proyecto: ["Endesa CAT"],
       servicio: ["E-REDES"],
-      tarea: ["Auditoría", "Verificación", "Encuesta", "Emisión"],
-      startedTarea: ["Verificación", "Encuesta"]
+      tarea: ["Auditoría", "Verificación", "Encuesta", "Emisión"]
     };
   }
 };
