@@ -2,10 +2,11 @@
   <v-dialog v-model="dialog" persistent max-width="294">
     <v-card>
       <v-card-title>
-        <v-btn icon disabled outlined height="20" width="20" class="btn-style">
-          <v-icon small>mdi-pause</v-icon>
+        <v-btn icon disabled height="20" width="20">
+          <!-- <v-icon small>mdi-pause</v-icon>-->
+          <v-img src="@/assets/icons/ic_pause_small.svg" />
         </v-btn>
-        <span class="ml-2 subtitle-1">Incidencia</span>
+        <span class="ml-2 subtitle-1 font-weight-bold">Incidencia</span>
       </v-card-title>
       <v-card-text>
         <v-select
@@ -18,12 +19,17 @@
           outlined
         >
         </v-select>
-        <v-textarea v-model="comentarios" label="Comentarios" outlined class="body-2"> </v-textarea>
+        <v-textarea v-model="comentarios" label="Comentarios" outlined class="body-2"></v-textarea>
         <div class="img-input-style py-1 px-2">
-          <v-btn class="pt-1" icon style="background-color: #CACCCF;">
-            <v-icon color="white">
-              mdi-camera-outline
-            </v-icon>
+          <!--
+                    <v-btn class="pt-1" icon style="background-color: #CACCCF;">
+                      <v-icon color="white">
+                        mdi-camera-outline
+                      </v-icon>
+                    </v-btn>
+          -->
+          <v-btn icon style="margin-top: 2px;">
+            <v-img width="40" height="40" src="@/assets/icons/ic_camera.svg" />
           </v-btn>
           <span class="caption ml-2">Seleccionar/arrastrar imagen</span>
         </div>
@@ -86,7 +92,8 @@ export default {
   box-sizing: border-box;
   border-radius: 4px;
 }
-.v-textarea textarea{
+
+.v-textarea textarea {
   line-height: 0;
   padding: 10px;
 }

@@ -42,23 +42,23 @@
         </v-col>
       </v-row>
     </v-col>
-    <v-col cols="3" align-self="center" class="text-right pr-5">
+    <v-col cols="3" align-self="center" class="text-right pr-6">
       <v-menu rounded="rounded" offset-y>
         <template v-slot:activator="{ attrs, on }">
           <v-btn
             v-if="!play"
-            height="40"
-            width="40"
+            height="42"
+            width="42"
             icon
             class="play-btn-style"
             :color="!play ? 'primary' : '#FB4E4E'"
             outlined
             @click="play = !play"
           >
-            <v-icon>mdi-play</v-icon>
+            <v-icon size="28">mdi-play</v-icon>
           </v-btn>
-          <v-btn v-else height="40" width="40" icon class="play-btn-style" :color="!play ? 'primary' : '#FB4E4E'" outlined v-bind="attrs" v-on="on">
-            <v-icon>mdi-stop</v-icon>
+          <v-btn v-else height="42" width="42" icon class="play-btn-style" :color="!play ? 'primary' : '#FB4E4E'" outlined v-bind="attrs" v-on="on">
+            <v-icon size="28">mdi-stop</v-icon>
           </v-btn>
         </template>
         <v-list>
@@ -71,8 +71,9 @@
         </v-list>
       </v-menu>
       <br />
-      <v-btn icon class="mt-2">
-        <v-icon color="#A0A4A8" small>mdi-menu</v-icon>
+      <v-btn width="20" height="20" icon class="mt-2 pa-1" style="margin-right: 9px;">
+<!--        <v-icon color="#A0A4A8" small>mdi-menu</v-icon>-->
+        <v-img src="@/assets/icons/ic_menu.svg" />
       </v-btn>
     </v-col>
   </v-row>
@@ -138,6 +139,6 @@ export default {
 
 <style scoped>
 .play-btn-style {
-  border: 2px solid;
+  border: 3px solid;
 }
 </style>

@@ -1,13 +1,14 @@
 <template>
   <v-row>
-    <v-col align="start">
-      <v-icon class="mr-2" color="grey">mdi-clock-outline</v-icon>
+    <v-col align="start" class="pt-1">
+      <v-icon class="mr-2" size="22" color="grey">mdi-clock-outline</v-icon>
       <span class="black--text subtitle-2 font-weight-bold">{{ cardTitle }}</span>
     </v-col>
-    <v-col align="right" cols="8">
-      <v-btn text small class="grey--text">
-        <v-icon small class="mr-1">mdi-calendar-blank-outline</v-icon>
-        {{ date }}
+    <v-col align="right" cols="8" class="pt-0">
+      <v-btn text small disabled>
+        <!-- <v-icon small class="mr-1">mdi-calendar-blank-outline</v-icon>-->
+        <v-img src="@/assets/icons/ic_calendar.svg" class="mr-1" />
+        <span class="dattechs_black_3--text font-weight-light" style="padding-top: 2px;">{{ date }}</span>
       </v-btn>
       <v-tooltip bottom color="dattechs_black_2">
         <template v-slot:activator="{ on, attrs }">
@@ -18,11 +19,12 @@
             v-bind="attrs"
             v-on="on"
           >
-            <v-icon small class="mr-1">mdi-timelapse</v-icon>
-            {{ shifts[0].startTime }} - {{ shifts[0].endTime }}
+            <v-img v-if="isStartWorkLate" src="@/assets/icons/ic_timer_red.svg" class="mr-1" />
+            <v-img v-else src="@/assets/icons/ic_timer.svg" class="mr-1" />
+            <span class="dattechs_black_3--text font-weight-light" style="padding-top: 2px;">{{ shifts[0].startTime }} - {{ shifts[0].endTime }}</span>
           </v-btn>
         </template>
-        <HorarioHabitual :shifts="shifts"/>
+        <HorarioHabitual :shifts="shifts" />
       </v-tooltip>
     </v-col>
   </v-row>
@@ -30,6 +32,7 @@
 
 <script>
 import HorarioHabitual from "@/components/widgets/InicioJornada/HorarioHabitual";
+
 export default {
   name: "CardHeader",
   components: { HorarioHabitual },

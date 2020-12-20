@@ -41,7 +41,7 @@ export default {
           endTime: "18:00"
         }
       ],
-      isStartWorkLate: true,
+      isStartWorkLate: false,
       cliente: ["Telefónica", "IZO"],
       proyecto: ["Endesa CAT"],
       servicio: ["E-REDES"],
