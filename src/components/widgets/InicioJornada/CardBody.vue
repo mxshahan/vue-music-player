@@ -3,49 +3,28 @@
     <v-col>
       <v-row>
         <v-col class="py-0">
-          <v-select
-            v-model="selectedCliente"
-            :items="cliente"
-            label="Cliente"
-            append-icon="mdi-chevron-down"
-            dense
-            outlined
-          ></v-select>
+          <SelectComponent label="Cliente" :items="cliente" v-on:select="onSelectCliente($event)" />
         </v-col>
         <v-col class="py-0">
-          <v-select
-            v-model="selectedProyecto"
-            :disabled="$store.state.selectedCliente === ''"
-            :items="proyecto"
+          <SelectComponent
             label="Proyecto"
-            append-icon="mdi-chevron-down"
-            dense
-            outlined
-          ></v-select>
+            :items="proyecto"
+            v-on:select="onSelectProyecto($event)"
+            :disabled="$store.state.selectedCliente === ''"
+          />
         </v-col>
       </v-row>
       <v-row>
         <v-col class="py-0">
-          <v-select
-            v-model="selectedServicio"
-            :disabled="$store.state.selectedProyecto === ''"
-            :items="servicio"
+          <SelectComponent
             label="Servicio"
-            append-icon="mdi-chevron-down"
-            dense
-            outlined
-          ></v-select>
+            :items="servicio"
+            v-on:select="onSelectServicio($event)"
+            :disabled="$store.state.selectedProyecto === ''"
+          />
         </v-col>
         <v-col class="py-0">
-          <v-select
-            v-model="selectedTarea"
-            :disabled="$store.state.selectedServicio === ''"
-            :items="tarea"
-            label="Tarea"
-            append-icon="mdi-chevron-down"
-            dense
-            outlined
-          ></v-select>
+          <SelectComponent label="Tarea" :items="tarea" v-on:select="onSelectTarea($event)" :disabled="$store.state.selectedServicio === ''" />
         </v-col>
       </v-row>
     </v-col>
@@ -108,9 +87,11 @@
 
 <script>
 import { bus } from "@/main";
+import SelectComponent from "@/components/widgets/InicioJornada/SelectComponent";
 
 export default {
   name: "CardBody",
+  components: { SelectComponent },
   props: {
     cliente: {
       type: Array
@@ -143,27 +124,29 @@ export default {
       this.play = !data;
     });
   },
-  watch: {
-    selectedCliente(newValue) {
-      this.$store.commit("UPDATE_SELECTED_CLIENTE", newValue);
+  methods: {
+    onSelectCliente(cliente) {
+      this.selectedCliente = cliente;
+      this.$store.commit("UPDATE_SELECTED_CLIENTE", cliente);
     },
-    selectedProyecto(newValue) {
-      this.$store.commit("UPDATE_SELECTED_PROYECTO", newValue);
+    onSelectProyecto(proyecto) {
+      this.selectedProyecto = proyecto;
+      this.$store.commit("UPDATE_SELECTED_PROYECTO", proyecto);
     },
-    selectedServicio(newValue) {
-      this.$store.commit("UPDATE_SELECTED_SERVICIO", newValue);
+    onSelectServicio(servicio) {
+      this.selectedServicio = servicio;
+      this.$store.commit("UPDATE_SELECTED_SERVICIO", servicio);
     },
-    selectedTarea(newValue) {
-      this.$store.commit("UPDATE_SELECTED_TAREA", newValue);
+    onSelectTarea(tarea) {
+      this.selectedTarea = tarea;
+      this.$store.commit("UPDATE_SELECTED_TAREA", tarea);
       this.$store.commit("ADD_TAREA_STARTED_TAREA_LIST", {
         cliente: this.selectedCliente,
         proyecto: this.selectedProyecto,
         servicio: this.selectedServicio,
         tarea: this.selectedTarea
       });
-    }
-  },
-  methods: {
+    },
     showDialogFinalizarJordana() {
       bus.$emit("toggleDialogFinalizarJordana", "someValue");
     },
