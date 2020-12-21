@@ -26,7 +26,7 @@ const routes = [
   {
     path: "/turnos-partidos",
     name: "TurnosPartidos",
-    component: () => import("../views/PageInicioJornada.vue")
+    component: () => import("../views/PageTurnosPartidos.vue")
   },
   {
     path: "/absentismos-programados",

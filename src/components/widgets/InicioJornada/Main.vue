@@ -14,7 +14,7 @@
         :tarea="tarea"
       />
 <!--      <TimerProgress :is-over-time="isOverTime" />-->
-      <MultiTimerProgress :is-over-time="false"/>
+      <MultiTimerProgress :progress-data="progressData" :is-over-time="false"/>
     </v-card-text>
     <DialogFinalizarJordana/>
     <DialogParada/>
@@ -58,6 +58,10 @@ export default {
     },
     tarea: {
       type: Array
+    },
+    progressData: {
+      type: Array,
+      required: true
     }
   }
 };

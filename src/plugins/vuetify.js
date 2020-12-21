@@ -13,6 +13,7 @@ export default new Vuetify({
         info: "#26A69A",
         warning: "#FFC657",
         error: "#FB4E4E",
+        colorLeave: "#f29b9b",
         success: "#43A047",
         iconColor: "#A0A4A8",
         iconColorDarkGrey: "#777777",
