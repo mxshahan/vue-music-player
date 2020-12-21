@@ -9,6 +9,12 @@
       </v-avatar>
       <span class="pl-1 caption">{{ shift.startTime }}-{{ shift.endTime }}</span>
     </div>
+    <v-img
+      style="position: absolute; top: 0;left: 48%;  margin-top: -4px;"
+      width="10"
+      height="4"
+      src="@/assets/icons/bg_tooltip_tail.svg"
+    />
   </div>
 </template>
 

@@ -19,6 +19,12 @@
             <v-img v-if="data.status !== leave" width="16" height="16" src="@/assets/icons/ic_message_read.svg" />
           </v-col>
         </v-row>
+        <v-img
+          style="position: absolute; top: 0;left: 48%;  margin-top: -4px;"
+          width="10"
+          height="4"
+          src="@/assets/icons/bg_tooltip_tail.svg"
+        />
       </v-tooltip>
     </div>
     <div v-else>
