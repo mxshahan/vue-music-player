@@ -40,7 +40,7 @@
             <v-btn outlined color="dattechs_black_3" class="text-capitalize font-weight-normal body-2 px-5 mx-2" text @click="dialog = false">
               Cancelar
             </v-btn>
-            <v-btn color="primary" class="text-capitalize font-weight-normal body-2 px-5 mx-2" @click="pauseTareaTimerAndCloseDialog()">
+            <v-btn color="primary" class="text-capitalize font-weight-normal body-2 px-5 mx-2" @click="stopTareaTimerAndCloseDialog()">
               Aceptar
             </v-btn>
           </v-col>
@@ -52,9 +52,16 @@
 
 <script>
 import { bus } from "@/main";
+import { workStatus } from "@/helper/constants";
 
 export default {
   name: "DialogIncidencia",
+  props: {
+    tareaId: {
+      type: Number,
+      required: true
+    }
+  },
   data() {
     return {
       dialog: false,
@@ -72,7 +79,9 @@ export default {
     });
   },
   methods: {
-    pauseTareaTimerAndCloseDialog() {
+    stopTareaTimerAndCloseDialog() {
+      console.log("stopping tareaId---->", this.tareaId);
+      this.$store.commit("STOP_WORK", { tareaId: this.tareaId, workStatus: workStatus.STOPPED });
       bus.$emit("tareaTimerPaused", true);
       this.dialog = !this.dialog;
     }

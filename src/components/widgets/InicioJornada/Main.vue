@@ -13,25 +13,24 @@
         :servicio="servicio"
         :tarea="tarea"
       />
-      <TimerProgress :is-over-time="isOverTime" />
+<!--      <TimerProgress :is-over-time="isOverTime" />-->
+      <MultiTimerProgress :is-over-time="false"/>
     </v-card-text>
     <DialogFinalizarJordana/>
     <DialogParada/>
-    <DialogIncidencia />
   </v-card>
 </template>
 
 <script>
-import TimerProgress from "@/components/widgets/InicioJornada/TimerProgress";
 import CardHeader from "@/components/widgets/InicioJornada/CardHeader";
 import CardBody from "@/components/widgets/InicioJornada/CardBody";
 import DialogParada from "@/components/widgets/InicioJornada/dialogs/DialogParada";
-import DialogIncidencia from "@/components/widgets/InicioJornada/dialogs/DialogIncidencia";
 import DialogFinalizarJordana from "@/components/widgets/InicioJornada/dialogs/DialogFinalizarJordana";
+import MultiTimerProgress from "@/components/widgets/InicioJornada/MultiTimerProgress";
 
 export default {
   name: "InicioJornadaMain",
-  components: { DialogFinalizarJordana, DialogIncidencia, DialogParada, CardBody, CardHeader, TimerProgress },
+  components: { MultiTimerProgress, DialogFinalizarJordana, DialogParada, CardBody, CardHeader },
   props: {
     cardTitle: {
       type: String

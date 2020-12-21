@@ -46,6 +46,7 @@
       <v-menu rounded="rounded" offset-y>
         <template v-slot:activator="{ attrs, on }">
           <v-btn
+            :disabled="$store.state.selectedTarea === null"
             v-if="!play"
             height="42"
             width="42"
@@ -139,12 +140,11 @@ export default {
     },
     selectedTarea(newValue) {
       this.$store.commit("UPDATE_SELECTED_TAREA", newValue);
-      this.$store.commit("UPDATE_STARTED_TAREA", {
+      this.$store.commit("ADD_TAREA_STARTED_TAREA_LIST", {
         cliente: this.selectedCliente,
         proyecto: this.selectedProyecto,
         servicio: this.selectedServicio,
-        tarea: this.selectedTarea,
-        status: "paused"
+        tarea: this.selectedTarea
       });
     }
   },

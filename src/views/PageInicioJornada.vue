@@ -13,7 +13,8 @@
         :is-over-time="true"
       />
       <div v-if="$store.state.selectedTarea !== null">
-        <TareaCard v-for="(task, index) in $store.state.startedTarea" :key="index" :tarea-details="task" :position="index" />
+        <TareaCard v-for="(task, index) in $store.state.startedTarea" :key="index" :tarea-details="task"
+                   :position="index" />
       </div>
     </v-col>
   </v-row>
@@ -28,6 +29,7 @@ export default {
   components: { TareaCard, InicioJornadaMain },
   data() {
     return {
+      currentTime: "",
       shifts: [
         {
           symbol: "M",
@@ -48,6 +50,18 @@ export default {
       servicio: ["E-REDES"],
       tarea: ["Auditoría", "Verificación", "Encuesta", "Emisión"]
     };
+  },
+  timers: {
+    updateCurrentTime: {
+      time: 1000,
+      autostart: true
+    }
+  },
+  methods: {
+    updateCurrentTime() {
+      console.log("updateCurrentTime--->");
+      this.currentTime = new Date().getTime();
+    }
   }
 };
 </script>

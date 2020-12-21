@@ -11,7 +11,7 @@
         <v-menu rounded="rounded" offset-y>
           <template v-slot:activator="{ attrs, on }">
             <v-btn
-              @click="play = !play"
+              @click="startWork()"
               class="float-right play-btn-style"
               height="40"
               width="40"
@@ -38,12 +38,15 @@
       </v-col>
     </v-row>
     <TimerProgress />
+    <DialogIncidencia :tarea-id="tareaDetails.id"/>
   </v-card>
 </template>
 
 <script>
 import TimerProgress from "@/components/widgets/InicioJornada/TimerProgress";
 import { bus } from "@/main";
+import DialogIncidencia from "@/components/widgets/InicioJornada/dialogs/DialogIncidencia";
+import { mapActions } from 'vuex'
 
 export default {
   name: "TareaCard",
@@ -57,7 +60,7 @@ export default {
       required: true
     }
   },
-  components: { TimerProgress },
+  components: { DialogIncidencia, TimerProgress },
   data() {
     return {
       play: false
@@ -70,8 +73,21 @@ export default {
     });
   },
   methods: {
+    ...mapActions(["requestStartWork"]),
     showDialogIncidencia() {
       bus.$emit("toggleDialogIncidencia", "someValue");
+    },
+    startWork() {
+      if (!this.play) {
+        //start work
+        console.log("start work-->", this.tareaDetails);
+        this.play = true;
+        this.requestStartWork({ tareaId: this.tareaDetails.id });
+        // this.$store.commit("START_WORK", this.tareaDetails.id);
+      } else {
+        //already working
+        console.log("already working: -->", this.tareaDetails);
+      }
     }
   }
 };
