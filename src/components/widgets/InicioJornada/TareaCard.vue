@@ -37,16 +37,16 @@
         </v-menu>
       </v-col>
     </v-row>
-    <TimerProgress />
+    <MultiTimerProgress :progress-data="progressData" />
     <DialogIncidencia :tarea-id="tareaDetails.id"/>
   </v-card>
 </template>
 
 <script>
-import TimerProgress from "@/components/widgets/InicioJornada/TimerProgress";
 import { bus } from "@/main";
 import DialogIncidencia from "@/components/widgets/InicioJornada/dialogs/DialogIncidencia";
 import { mapActions } from 'vuex'
+import MultiTimerProgress from "@/components/widgets/InicioJornada/MultiTimerProgress";
 
 export default {
   name: "TareaCard",
@@ -60,10 +60,33 @@ export default {
       required: true
     }
   },
-  components: { DialogIncidencia, TimerProgress },
+  components: { MultiTimerProgress, DialogIncidencia },
   data() {
     return {
-      play: false
+      play: false,
+      progressData: [
+        {
+          progress: 10,
+          duration: "1h 00min",
+          time: "9:20-10:30",
+          status: "late",
+          color: "disabled"
+        },
+        {
+          progress: 20,
+          duration: "2h 00min",
+          time: "10:30-12:30",
+          status: "leave",
+          color: "colorLeave"
+        },
+        {
+          progress: 25,
+          duration: "2h 30min",
+          time: "12:30-3:00",
+          status: "working",
+          color: "primary"
+        }
+      ]
     };
   },
   created() {

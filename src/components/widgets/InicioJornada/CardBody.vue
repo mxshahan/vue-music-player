@@ -3,7 +3,14 @@
     <v-col>
       <v-row>
         <v-col class="py-0">
-          <v-select v-model="selectedCliente" :items="cliente" label="Cliente" append-icon="mdi-chevron-down" dense outlined></v-select>
+          <v-select
+            v-model="selectedCliente"
+            :items="cliente"
+            label="Cliente"
+            append-icon="mdi-chevron-down"
+            dense
+            outlined
+          ></v-select>
         </v-col>
         <v-col class="py-0">
           <v-select
@@ -69,7 +76,7 @@
           <v-list-item link @click="showDialogFinalizarJordana()">
             <v-list-item-title>Finalizar jornada</v-list-item-title>
           </v-list-item>
-          <v-list-item link @click="showDialogParada()">
+          <v-list-item active-class="primary" link @click="showDialogParada()">
             <v-list-item-title>Parada...</v-list-item-title>
           </v-list-item>
         </v-list>
@@ -93,12 +100,7 @@
           </v-btn>
         </template>
         <span>Historial</span>
-        <v-img
-          style="position: absolute; top: 0;left: 47%;  margin-top: -4px;"
-          width="10"
-          height="4"
-          src="@/assets/icons/bg_tooltip_tail.svg"
-        />
+        <v-img style="position: absolute; top: 0;left: 47%;  margin-top: -4px;" width="10" height="4" src="@/assets/icons/bg_tooltip_tail.svg" />
       </v-tooltip>
     </v-col>
   </v-row>

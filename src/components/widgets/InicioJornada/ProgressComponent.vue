@@ -5,7 +5,7 @@
         <template v-slot:activator="{ on, attrs }">
           <!--            :class="{ 'ml-n2': index > 0 }"-->
           <v-progress-linear
-            :style="`z-index: ${200 - index};  margin-left: ${-5 * index + 'px !important;'} width: ${102 + (5 * index) + '% !important;'}`"
+            :style="`z-index: ${9 - index};  margin-left: ${-5 * index + 'px !important;'} width: ${102 + (5 * index) + '% !important;'}`"
             class="cursor-pointer"
             v-bind="attrs"
             v-on="on"

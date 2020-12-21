@@ -14,12 +14,11 @@
         :tarea="tarea"
         :hasMultipleShift="shifts.length > 1"
       />
-<!--      <TimerProgress :is-over-time="isOverTime" />-->
-      <MultiTimerProgress :progress-data="progressData" :is-over-time="false"/>
+      <MultiTimerProgress :progress-data="progressData" :is-over-time="false" />
     </v-card-text>
-    <DialogFinalizarJordana :remaining-time="remainingTime"/>
-    <DialogParada/>
-    <Snackbar/>
+    <DialogFinalizarJordana :remaining-time="remainingTime" />
+    <DialogParada />
+    <Snackbar />
   </v-card>
 </template>
 
