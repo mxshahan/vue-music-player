@@ -18,6 +18,7 @@
     </v-card-text>
     <DialogFinalizarJordana/>
     <DialogParada/>
+    <Snackbar/>
   </v-card>
 </template>
 
@@ -27,10 +28,11 @@ import CardBody from "@/components/widgets/InicioJornada/CardBody";
 import DialogParada from "@/components/widgets/InicioJornada/dialogs/DialogParada";
 import DialogFinalizarJordana from "@/components/widgets/InicioJornada/dialogs/DialogFinalizarJordana";
 import MultiTimerProgress from "@/components/widgets/InicioJornada/MultiTimerProgress";
+import Snackbar from "@/components/widgets/InicioJornada/Snackbar";
 
 export default {
   name: "InicioJornadaMain",
-  components: { MultiTimerProgress, DialogFinalizarJordana, DialogParada, CardBody, CardHeader },
+  components: { Snackbar, MultiTimerProgress, DialogFinalizarJordana, DialogParada, CardBody, CardHeader },
   props: {
     cardTitle: {
       type: String

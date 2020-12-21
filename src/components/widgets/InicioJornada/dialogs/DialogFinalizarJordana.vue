@@ -5,8 +5,9 @@
         <v-col align="center">
           <v-img width="28" height="28" class="mb-7 mt-10" src="@/assets/icons/ic_warning.svg" />
           <p>
-            <span class="font-weight-bold subtitle-1">¿Estás seguro de finalizar la jornada? </span><br /><span
-            class="font-weight-normal">Aún le quedan</span>
+            <span class="font-weight-bold subtitle-1">¿Estás seguro de finalizar la jornada? </span><br /><span class="font-weight-normal"
+              >Aún le quedan</span
+            >
             <span class="font-weight-bold subtitle-1">1h 30 min</span>
           </p>
           <div>
@@ -16,10 +17,11 @@
                 <v-icon v-else>mdi-account-outline</v-icon>
               </v-avatar>
               <v-btn
-                @click="addComentario = true"
+                @click="showAddComentario()"
                 color="dattechs_black_5"
                 elevation="0"
-                class="text-capitalize font-weight-normal dattechs_black_2--text">
+                class="text-capitalize font-weight-normal dattechs_black_2--text"
+              >
                 Añadir comentario <span class="error--text pl-1">*</span>
               </v-btn>
             </div>
@@ -59,12 +61,10 @@
       <v-card-actions>
         <v-row class="mt-2 mb-5">
           <v-col align="center">
-            <v-btn outlined color="dattechs_black_3" class="text-capitalize font-weight-normal body-2 px-5 mx-2" text
-                   @click="closeDialog()">
+            <v-btn outlined color="dattechs_black_3" class="text-capitalize font-weight-normal body-2 px-5 mx-2" text @click="closeDialog()">
               Cancelar
             </v-btn>
-            <v-btn color="primary" class="text-capitalize font-weight-normal body-2 px-5 mx-2"
-                   @click="stopJordanaTimerAndCloseDialog()">
+            <v-btn color="primary" class="text-capitalize font-weight-normal body-2 px-5 mx-2" @click="stopJordanaTimerAndCloseDialog()">
               Aceptar
             </v-btn>
           </v-col>
@@ -94,7 +94,12 @@ export default {
     });
   },
   methods: {
+    showAddComentario() {
+      this.addComentario = true;
+      this.$store.commit("SHOW_SNACKBAR_MESSAGE", { content: "Mensaje obligatorio con notificación Roja (urgente)", color: "error" });
+    },
     closeDialog() {
+      this.$store.commit("SHOW_SNACKBAR_MESSAGE", { content: "Si pone mensaje notificación azul (normal)", color: "info" });
       this.dialog = false;
       this.addComentario = false;
     },

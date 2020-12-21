@@ -1,11 +1,14 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import { workStatus } from "@/helper/constants";
-
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    snackbar: {
+      content: "",
+      color: ""
+    },
     shifts: [
       {
         symbol: "M",
@@ -34,6 +37,10 @@ export default new Vuex.Store({
     showHistory: true
   },
   mutations: {
+    SHOW_SNACKBAR_MESSAGE: (state, { content, color }) => {
+      state.snackbar.content = content;
+      state.snackbar.color = color;
+    },
     UPDATE_SELECTED_CLIENTE: (state, value) => {
       state.selectedCliente = value;
     },

@@ -14,8 +14,7 @@
         :progress-data="progressData"
       />
       <div v-if="$store.state.selectedTarea !== null">
-        <TareaCard v-for="(task, index) in $store.state.startedTarea" :key="index" :tarea-details="task"
-                   :position="index" />
+        <TareaCard v-for="(task, index) in $store.state.startedTarea" :key="index" :tarea-details="task" :position="index" />
       </div>
     </v-col>
   </v-row>

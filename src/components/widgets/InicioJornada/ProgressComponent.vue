@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div id="fruit-meter" v-if="progressData.length !== 0">
+    <div id="time-tracker" v-if="progressData.length !== 0">
       <v-tooltip style="position: relative; top: 0;" bottom color="dattechs_black_2" v-for="(data, index) in progressData" :key="index">
         <template v-slot:activator="{ on, attrs }">
           <v-progress-linear
@@ -50,7 +50,7 @@ export default {
 </script>
 
 <style scoped>
-#fruit-meter {
+#time-tracker {
   border: 2px solid white;
   background: #e8e8e8;
   border-radius: 10px;
@@ -58,25 +58,5 @@ export default {
   /* New code below: */
   display: grid;
   grid-template-columns: 0.5fr 1fr 0.3fr 0.6fr 1fr;
-}
-
-#apples {
-  background: #48bb78;
-}
-
-#bananas {
-  background: #ecc94b;
-}
-
-#peaches {
-  background: #ed8936;
-}
-
-#cherries {
-  background: #e53e3e;
-}
-
-#grapes {
-  background: #805ad5;
 }
 </style>

@@ -37,7 +37,7 @@
       <v-card-actions>
         <v-row>
           <v-col align="center">
-            <v-btn outlined color="dattechs_black_3" class="text-capitalize font-weight-normal body-2 px-5 mx-2" text @click="dialog = false">
+            <v-btn outlined color="dattechs_black_3" class="text-capitalize font-weight-normal body-2 px-5 mx-2" text @click="closeDialog()">
               Cancelar
             </v-btn>
             <v-btn color="primary" class="text-capitalize font-weight-normal body-2 px-5 mx-2" @click="stopTareaTimerAndCloseDialog()">
@@ -79,6 +79,10 @@ export default {
     });
   },
   methods: {
+    closeDialog() {
+      this.$store.commit("SHOW_SNACKBAR_MESSAGE", { content: "Mensaje obligatorio con notificación Roja (urgente)", color: "error" });
+      this.dialog = false;
+    },
     stopTareaTimerAndCloseDialog() {
       console.log("stopping tareaId---->", this.tareaId);
       this.$store.commit("STOP_WORK", { tareaId: this.tareaId, workStatus: workStatus.STOPPED });

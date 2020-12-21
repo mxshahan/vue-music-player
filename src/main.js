@@ -10,7 +10,6 @@ import "@fortawesome/fontawesome-free/js/all.js";
 
 Vue.use(VueTimers);
 Vue.use(VueMoment);
-
 Vue.config.productionTip = false;
 
 new Vue({
