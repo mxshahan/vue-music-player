@@ -12,11 +12,12 @@
         :proyecto="proyecto"
         :servicio="servicio"
         :tarea="tarea"
+        :hasMultipleShift="shifts.length > 1"
       />
 <!--      <TimerProgress :is-over-time="isOverTime" />-->
       <MultiTimerProgress :progress-data="progressData" :is-over-time="false"/>
     </v-card-text>
-    <DialogFinalizarJordana/>
+    <DialogFinalizarJordana :remaining-time="remainingTime"/>
     <DialogParada/>
     <Snackbar/>
   </v-card>
@@ -64,6 +65,9 @@ export default {
     progressData: {
       type: Array,
       required: true
+    },
+    remainingTime: {
+      type: String
     }
   }
 };

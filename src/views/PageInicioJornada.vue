@@ -12,6 +12,7 @@
         :tarea="tarea"
         :is-over-time="true"
         :progress-data="progressData"
+        remaining-time="1h 30min"
       />
       <div v-if="$store.state.selectedTarea !== null">
         <TareaCard v-for="(task, index) in $store.state.startedTarea" :key="index" :tarea-details="task"

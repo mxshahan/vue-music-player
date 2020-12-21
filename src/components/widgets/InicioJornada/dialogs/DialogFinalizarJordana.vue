@@ -4,7 +4,11 @@
       <v-row class="ma-0">
         <v-col align="center">
           <v-img width="28" height="28" class="mb-7 mt-10" src="@/assets/icons/ic_warning.svg" />
-          <p>
+
+          <p v-if="remainingTime === undefined">
+            <span class="font-weight-bold subtitle-1">¿Finalizar jornada? </span>
+          </p>
+          <p v-else>
             <span class="font-weight-bold subtitle-1">¿Estás seguro de finalizar la jornada? </span><br /><span class="font-weight-normal"
               >Aún le quedan</span
             >
@@ -22,7 +26,8 @@
                 elevation="0"
                 class="text-capitalize font-weight-normal dattechs_black_2--text"
               >
-                Añadir comentario <span class="error--text pl-1">*</span>
+                Añadir comentario<span v-if="remainingTime !== undefined" class="error--text pl-1"> *</span>
+                <span v-else>...</span>
               </v-btn>
             </div>
             <v-row v-else class="mx-10">
@@ -79,6 +84,12 @@ import { bus } from "@/main";
 
 export default {
   name: "DialogFinalizarJordana",
+  props: {
+    remainingTime: {
+      type: String,
+      required: true
+    }
+  },
   data() {
     return {
       dialog: false,

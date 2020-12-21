@@ -63,6 +63,9 @@
           </v-btn>
         </template>
         <v-list>
+          <v-list-item link :disabled="hasMultipleShift">
+            <v-list-item-title>Finalizar turno</v-list-item-title>
+          </v-list-item>
           <v-list-item link @click="showDialogFinalizarJordana()">
             <v-list-item-title>Finalizar jornada</v-list-item-title>
           </v-list-item>
@@ -112,6 +115,10 @@ export default {
     },
     tarea: {
       type: Array
+    },
+    hasMultipleShift: {
+      type: Boolean,
+      required: true
     }
   },
   data() {
