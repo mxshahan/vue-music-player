@@ -58,9 +58,9 @@ export default {
           color: "dattechs_black_5"
         },
         {
-          progress: 10,
+          progress: 20,
           duration: "Médico",
-          time: "10:00-11:00",
+          time: "10:00-12:00",
           status: "leave",
           color: "colorLeave"
         }
