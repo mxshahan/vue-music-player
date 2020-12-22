@@ -67,10 +67,6 @@ export default {
 </script>
 
 <style scoped>
-.btn-style {
-  border: 2px solid;
-}
-
 .img-input-style {
   width: 246px;
   height: 48px;

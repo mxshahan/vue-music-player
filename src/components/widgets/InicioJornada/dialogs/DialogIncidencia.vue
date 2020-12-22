@@ -9,14 +9,18 @@
         <span class="ml-2 subtitle-1 font-weight-bold">Incidencia</span>
       </v-card-title>
       <v-card-text>
-        <SelectComponent label="Tipo de incidencia" :items="items" class="mt-3" customClass="body-2"
-                         v-on:select="onSelectTipoDeIncidencia($event)" />
+        <SelectComponent
+          label="Tipo de incidencia"
+          :items="items"
+          class="mt-3"
+          customClass="body-2"
+          v-on:select="onSelectTipoDeIncidencia($event)" />
         <v-textarea v-model="comentarios" outlined class="body-2">
           <template v-slot:label>
             <div class="pa-0">Comentarios <strong class="error--text pr-1"> * </strong></div>
           </template>
         </v-textarea>
-        <ImageFileInputComponent/>
+        <ImageFileInputComponent />
       </v-card-text>
       <v-card-actions>
         <v-row>
