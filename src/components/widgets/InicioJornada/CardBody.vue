@@ -48,15 +48,27 @@
             <v-icon size="28">mdi-stop</v-icon>
           </v-btn>
         </template>
-        <v-list>
-          <v-list-item link :disabled="hasMultipleShift">
-            <v-list-item-title>Finalizar turno</v-list-item-title>
+        <v-list class="select-item pa-1">
+          <v-list-item class="pa-0 ma-0" dense :disabled="hasMultipleShift">
+            <v-list-item-content class="select-item pa-0 ma-0">
+              <v-list-item-title class="px-4 py-3">
+                Finalizar turno
+              </v-list-item-title>
+            </v-list-item-content>
           </v-list-item>
-          <v-list-item link @click="showDialogFinalizarJordana()">
-            <v-list-item-title>Finalizar jornada</v-list-item-title>
+          <v-list-item class="pa-0 ma-0" dense @click="showDialogFinalizarJordana()">
+            <v-list-item-content class="select-item pa-0 ma-0">
+              <v-list-item-title class="px-4 py-3">
+                Finalizar jornada
+              </v-list-item-title>
+            </v-list-item-content>
           </v-list-item>
-          <v-list-item active-class="primary" link @click="showDialogParada()">
-            <v-list-item-title>Parada...</v-list-item-title>
+          <v-list-item class="pa-0 ma-0" dense @click="showDialogParada()">
+            <v-list-item-content class="select-item pa-0 ma-0">
+              <v-list-item-title class="px-4 py-3">
+                Parada...
+              </v-list-item-title>
+            </v-list-item-content>
           </v-list-item>
         </v-list>
       </v-menu>

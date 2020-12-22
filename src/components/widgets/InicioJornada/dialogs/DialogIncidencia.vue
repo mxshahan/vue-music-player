@@ -9,25 +9,18 @@
         <span class="ml-2 subtitle-1 font-weight-bold">Incidencia</span>
       </v-card-title>
       <v-card-text>
-        <v-select
-          v-model="selectedTipoDeIncidencia"
-          :items="items"
+        <SelectComponent
           label="Tipo de incidencia"
-          append-icon="mdi-chevron-down"
-          class="body-2"
-          dense
-          outlined
-        >
-        </v-select>
-        <v-textarea v-model="comentarios" label="Comentarios" outlined class="body-2"></v-textarea>
+          :items="items"
+          class="mt-3"
+          customClass="body-2"
+          v-on:select="onSelectTipoDeIncidencia($event)" />
+        <v-textarea v-model="comentarios" outlined class="body-2">
+          <template v-slot:label>
+            <div class="pa-0">Comentarios <strong class="error--text pr-1"> * </strong></div>
+          </template>
+        </v-textarea>
         <div class="img-input-style py-1 px-2">
-          <!--
-                    <v-btn class="pt-1" icon style="background-color: #CACCCF;">
-                      <v-icon color="white">
-                        mdi-camera-outline
-                      </v-icon>
-                    </v-btn>
-          -->
           <v-btn icon style="margin-top: 2px;">
             <v-img width="40" height="40" src="@/assets/icons/ic_camera.svg" />
           </v-btn>
@@ -37,10 +30,12 @@
       <v-card-actions>
         <v-row>
           <v-col align="center">
-            <v-btn outlined color="dattechs_black_3" class="text-capitalize font-weight-normal body-2 px-5 mx-2" text @click="closeDialog()">
+            <v-btn outlined color="dattechs_black_3" class="text-capitalize font-weight-normal body-2 px-5 mx-2" text
+                   @click="closeDialog()">
               Cancelar
             </v-btn>
-            <v-btn color="primary" class="text-capitalize font-weight-normal body-2 px-5 mx-2" @click="stopTareaTimerAndCloseDialog()">
+            <v-btn color="primary" class="text-capitalize font-weight-normal body-2 px-5 mx-2"
+                   @click="stopTareaTimerAndCloseDialog()">
               Aceptar
             </v-btn>
           </v-col>
@@ -53,9 +48,11 @@
 <script>
 import { bus } from "@/main";
 import { workStatus } from "@/helper/constants";
+import SelectComponent from "@/components/widgets/InicioJornada/SelectComponent";
 
 export default {
   name: "DialogIncidencia",
+  components: { SelectComponent },
   props: {
     tareaId: {
       type: Number,
@@ -79,8 +76,14 @@ export default {
     });
   },
   methods: {
+    onSelectTipoDeIncidencia(tipoDeIncidencia) {
+      this.selectedTipoDeIncidencia = tipoDeIncidencia;
+    },
     closeDialog() {
-      this.$store.commit("SHOW_SNACKBAR_MESSAGE", { content: "Mensaje obligatorio con notificación Roja (urgente)", color: "error" });
+      this.$store.commit("SHOW_SNACKBAR_MESSAGE", {
+        content: "Mensaje obligatorio con notificación Roja (urgente)",
+        color: "error"
+      });
       this.dialog = false;
     },
     stopTareaTimerAndCloseDialog() {

@@ -23,15 +23,27 @@
               <v-icon v-else v-bind="attrs" v-on="on">mdi-pause </v-icon>
             </v-btn>
           </template>
-          <v-list>
-            <v-list-item link>
-              <v-list-item-title>Descanso</v-list-item-title>
+          <v-list class="select-item pa-1">
+            <v-list-item class="pa-0 ma-0" dense>
+              <v-list-item-content class="select-item pa-0 ma-0">
+                <v-list-item-title class="px-4 py-3">
+                  Descanso
+                </v-list-item-title>
+              </v-list-item-content>
             </v-list-item>
-            <v-list-item link @click="showDialogIncidencia()">
-              <v-list-item-title>Incidencia...</v-list-item-title>
+            <v-list-item class="pa-0 ma-0" dense @click="showDialogIncidencia()">
+              <v-list-item-content class="select-item pa-0 ma-0">
+                <v-list-item-title class="px-4 py-3">
+                  Incidencia...
+                </v-list-item-title>
+              </v-list-item-content>
             </v-list-item>
-            <v-list-item link>
-              <v-list-item-title>Otros...</v-list-item-title>
+            <v-list-item class="pa-0 ma-0" dense>
+              <v-list-item-content class="select-item pa-0 ma-0">
+                <v-list-item-title class="px-4 py-3">
+                  Otros...
+                </v-list-item-title>
+              </v-list-item-content>
             </v-list-item>
           </v-list>
         </v-menu>

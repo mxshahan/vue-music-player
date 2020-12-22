@@ -13,3 +13,11 @@ export default {
   })
 };
 </script>
+
+<style>
+.select-item :hover {
+  background: #0047d1;
+  color: white !important;
+  border-radius: 4px;
+}
+</style>

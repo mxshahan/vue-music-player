@@ -8,8 +8,7 @@
         <span class="ml-2 subtitle-1 font-weight-bold">Parada</span>
       </v-card-title>
       <v-card-text>
-        <v-select class="body-2" v-model="selectedParada" :items="items" label="Motivo" append-icon="mdi-chevron-down" dense outlined>
-        </v-select>
+        <SelectComponent class="mt-4" customClass="body-2" label="Motivo" :items="items" v-on:select="onSelectParada($event)" />
       </v-card-text>
     </v-card>
   </v-dialog>
@@ -17,9 +16,11 @@
 
 <script>
 import { bus } from "@/main";
+import SelectComponent from "@/components/widgets/InicioJornada/SelectComponent";
 
 export default {
   name: "DialogParada",
+  components: { SelectComponent },
   data() {
     return {
       dialog: false,
@@ -33,10 +34,11 @@ export default {
       this.dialog = !this.dialog;
     });
   },
-  watch: {
-    selectedParada(newValue) {
-      bus.$emit("toggleDialogIncidencia", newValue);
-      this.dialog = false
+  methods: {
+    onSelectParada(parada) {
+      this.selectedParada = parada;
+      bus.$emit("toggleDialogIncidencia", parada);
+      this.dialog = false;
     }
   }
 };

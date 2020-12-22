@@ -1,5 +1,5 @@
 <template>
-  <v-select v-model="selectedItem" :items="items" label="Cliente" dense outlined :disabled="disabled">
+  <v-select :class="customClass" v-model="selectedItem" :items="items" label="Cliente" dense outlined :disabled="disabled">
     <template v-slot:label>
       <span class="pa-0" :class="`${disabled ? 'disabled--text': 'black--text'}`">{{ label }}</span>
     </template>
@@ -35,6 +35,9 @@ export default {
     disabled: {
       type: Boolean,
       default: false
+    },
+    customClass: {
+      type: String
     }
   },
   data() {
@@ -49,11 +52,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-.select-item :hover {
-  background: #0047d1;
-  color: white;
-  border-radius: 4px;
-}
-</style>
