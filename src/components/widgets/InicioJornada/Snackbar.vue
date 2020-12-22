@@ -43,7 +43,6 @@ export default {
   },
   created() {
     this.$store.subscribe((mutation, state) => {
-      console.log("snackbar mutation");
       if (mutation.type === "SHOW_SNACKBAR_MESSAGE") {
         this.message = state.snackbar.content;
         this.color = state.snackbar.color.toLowerCase();

@@ -75,7 +75,6 @@ export default {
   },
   methods: {
     updateCurrentTime() {
-      console.log("updateCurrentTime--->");
       this.currentTime = new Date().getTime();
     }
   }

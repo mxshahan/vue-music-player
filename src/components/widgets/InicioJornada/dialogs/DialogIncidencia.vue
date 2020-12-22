@@ -9,23 +9,31 @@
         <span class="ml-2 subtitle-1 font-weight-bold">Incidencia</span>
       </v-card-title>
       <v-card-text>
-        <SelectComponent
-          label="Tipo de incidencia"
-          :items="items"
-          class="mt-3"
-          customClass="body-2"
-          v-on:select="onSelectTipoDeIncidencia($event)" />
+        <SelectComponent label="Tipo de incidencia" :items="items" class="mt-3" customClass="body-2"
+                         v-on:select="onSelectTipoDeIncidencia($event)" />
         <v-textarea v-model="comentarios" outlined class="body-2">
           <template v-slot:label>
             <div class="pa-0">Comentarios <strong class="error--text pr-1"> * </strong></div>
           </template>
         </v-textarea>
-        <div class="img-input-style py-1 px-2">
+        <div v-if="imageData === null" class="img-input-style py-1 pl-2 pr-1" @click="chooseImage">
           <v-btn icon style="margin-top: 2px;">
             <v-img width="40" height="40" src="@/assets/icons/ic_camera.svg" />
           </v-btn>
           <span class="caption ml-2">Seleccionar/arrastrar imagen</span>
         </div>
+        <div v-else class="img-input-style py-1 pl-2 pr-1">
+          <v-btn icon style="margin-top: 2px;">
+            <div class="base-image-input text-center" :style="{ 'background-image': `url(${imageData})` }"></div>
+          </v-btn>
+          <span class="caption ml-2 black--text">
+            {{ fileName }}
+            <v-btn small icon class="float-right pa-1" style="margin-top: 5px;" @click="clearFileSelection()"
+            ><v-img width="16" height="16" src="@/assets/icons/ic_symbol_x.svg"
+            /></v-btn>
+          </span>
+        </div>
+        <input class="d-none" ref="imageFile" type="file" accept="image/*" @input="onSelectFile" />
       </v-card-text>
       <v-card-actions>
         <v-row>
@@ -62,6 +70,8 @@ export default {
   data() {
     return {
       dialog: false,
+      imageData: null,
+      file: null,
       selectedTipoDeIncidencia: "",
       comentarios:
         "Minim enim excepteur dolore eu incididunt non reprehenderit deserunt nostruddeserunt elit. Labore enim dolore ex reprehenderit aliquip ut excepteur. ",
@@ -76,6 +86,31 @@ export default {
     });
   },
   methods: {
+    chooseImage() {
+      this.$refs.imageFile.click();
+    },
+    onSelectFile() {
+      // console.log("onSelectFile called");
+
+      const input = this.$refs.imageFile;
+      const files = input.files;
+
+      if (files && files[0]) {
+        console.log("image loaded");
+        const reader = new FileReader();
+        reader.onload = e => {
+          this.imageData = e.target.result;
+          this.file = this.$refs.imageFile.files[0];
+        };
+        reader.readAsDataURL(files[0]);
+      } else {
+        console.log("image not loaded");
+      }
+    },
+    clearFileSelection() {
+      this.imageData = null;
+      this.file = null;
+    },
     onSelectTipoDeIncidencia(tipoDeIncidencia) {
       this.selectedTipoDeIncidencia = tipoDeIncidencia;
     },
@@ -92,6 +127,12 @@ export default {
       bus.$emit("tareaTimerPaused", true);
       this.dialog = !this.dialog;
     }
+  },
+  computed: {
+    fileName() {
+      let name = this.file.name;
+      return name.length > 25 ? name.substring(0, 24).toString() + "..." : this.file.name;
+    }
   }
 };
 </script>
@@ -107,6 +148,16 @@ export default {
   border: 1px dashed #a0a4a8;
   box-sizing: border-box;
   border-radius: 4px;
+  cursor: pointer;
+}
+
+.base-image-input {
+  display: block;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  background-size: cover;
+  background-position: center center;
 }
 
 .v-textarea textarea {
