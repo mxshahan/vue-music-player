@@ -116,6 +116,10 @@ export default {
       bus.$emit("toggleDialogIncidencia", "someValue");
     },
     startWork() {
+      if (this.$store.state.userCurrentStatus.shiftTimeExceed) {
+        alert("Time exceed. You can not start any work now!");
+        return;
+      }
       if (!this.play) {
         //start work
         this.play = true;

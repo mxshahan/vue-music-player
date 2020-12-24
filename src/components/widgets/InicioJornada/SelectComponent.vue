@@ -1,5 +1,5 @@
 <template>
-  <v-select :class="customClass" v-model="selectedItem" :items="items" label="Cliente" dense outlined :disabled="disabled">
+  <v-select style="z-index: 200;" :class="customClass" v-model="selectedItem" :items="items" label="Cliente" dense outlined :disabled="disabled">
     <template v-slot:label>
       <span class="pa-0" :class="`${disabled ? 'disabled--text': 'black--text'}`">{{ label }}</span>
     </template>

@@ -77,9 +77,9 @@ export default {
       this.dialog = false;
     },
     async stopTareaTimerAndCloseDialog() {
-      console.log("stopping tareaId---->", this.tareaId);
+      console.log("stopping tareaId---->", this.tareaDetails);
       // this.$store.commit("STOP_WORK", { tareaId: this.tareaId, workStatus: workStatus.STOPPED });
-      await this.requestStopWork({ tareaDetails: this.tareaDetails, progress: 20, duration: "1h 20min", time: "time" });
+      await this.requestStopWork({ tareaDetails: this.tareaDetails });
       bus.$emit("work_stopped", this.tareaDetails);
       bus.$emit("tareaTimerPaused", true);
       this.dialog = !this.dialog;

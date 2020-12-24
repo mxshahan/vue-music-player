@@ -15,7 +15,8 @@ export default new Vuex.Store({
     userCurrentStatus: {
       tareaId: -1,
       status: workStatus.NOT_STARTED,
-      initialWorkStartTime: -1
+      initialWorkStartTime: -1,
+      shiftTimeExceed: false
     },
     selectedCliente: "",
     selectedProyecto: "",
@@ -28,6 +29,9 @@ export default new Vuex.Store({
   mutations: {
     SET_SHIFT: (state, data) => {
       state.shifts = data;
+    },
+    UPDATE_SHIFT_TIME_EXCEED: (state, value) => {
+      state.userCurrentStatus.shiftTimeExceed = value;
     },
     ADD_PROGRESS_DATA: (state, payload) => {
       const id = state.progressData.length;
@@ -45,12 +49,9 @@ export default new Vuex.Store({
       }
     },
     ADD_PROGRESS_DATA_IN_TAREA: (state, payload) => {
-      console.log("ADD_PROGRESS_DATA_IN_TAREA==>", payload);
       const index = state.startedTarea.findIndex(tarea => tarea.id === payload.tareaId);
       if (index !== -1) {
         const id = state.startedTarea[index].progressData.length;
-        console.log("ADD_PROGRESS_DATA_IN_TAREA--- adding>>");
-
         state.startedTarea[index].progressData.push({
           id,
           ...payload,
@@ -75,22 +76,6 @@ export default new Vuex.Store({
         state.startedTarea[tareaIndex].progressData[state.startedTarea[tareaIndex].progressData.length - 1].time = payload.time;
       } else {
         console.log("UPDATE_PROGRESS_DATA_IN_TAREA FAILED!!! Tarea not found by ID: ", payload.tareaId);
-      }
-    },
-    STOP_PROGRESS_DATA_IN_TAREA: (state, payload) => {
-      console.log("STOP_PROGRESS_DATA_IN_TAREA--->>", payload);
-      const index = state.startedTarea.findIndex(tarea => tarea.id === payload.tareaDetails.id);
-      if (index !== -1) {
-        console.log("STOP_PROGRESS_DATA_IN_TAREA--->>", payload);
-        // todo:: UPDATE STATUS OF TAREA
-        const startTime = new Date().getTime();
-        state.startedTarea[index].workingTimes.push({
-          startTime,
-          stopTime: 0,
-          status: workStatus.STOPPED
-        });
-      } else {
-        console.log("STOP_PROGRESS_DATA_IN_TAREA FAILED!!! Tarea not found by ID: ", payload.tareaId);
       }
     },
     SHOW_SNACKBAR_MESSAGE: (state, { content, color }) => {
@@ -132,7 +117,6 @@ export default new Vuex.Store({
       }
     },
     STOP_WORK: (state, tareaDetails) => {
-      console.log("STOP_WORK----->>", tareaDetails);
       const index = state.startedTarea.findIndex(tarea => tarea.id === tareaDetails.id);
       if (index !== -1) {
         const len = state.startedTarea[index].workingTimes.length;
@@ -140,6 +124,11 @@ export default new Vuex.Store({
           state.startedTarea[index].workingTimes[len - 1].stopTime = new Date().getTime();
           state.startedTarea[index].workingTimes[len - 1].status = workStatus.STOPPED;
           state.startedTarea[index].status = workStatus.STOPPED;
+          state.startedTarea[index].workingTimes.push({
+            startTime: new Date().getTime(),
+            stopTime: 0,
+            status: workStatus.STOPPED
+          });
           state.userCurrentStatus.status = workStatus.STOPPED;
           state.userCurrentStatus.initialWorkStartTime = new Date().getTime();
         } else {
@@ -168,7 +157,7 @@ export default new Vuex.Store({
       await commit("START_WORK", tareaId);
       commit("UPDATE_USER_CURRENT_STATUS", tareaId);
       //workingTimes
-      console.log("requestStartWork progress-->>", progress);
+      console.log(progress);
       await dispatch("addProgressDataInTarea", {
         tareaId,
         progress: currentProgress,
@@ -184,13 +173,11 @@ export default new Vuex.Store({
         status,
         color
       });
-      // await commit("ADD_PROGRESS_DATA_IN_TAREA", { tareaId, currentProgress, duration, time, status: "late", color: "disabled" });
-      // commit("ADD_PROGRESS_DATA_IN_TAREA", { tareaId, progress, duration, time, status: "working", color: "primary" });
     },
-    requestStopWork: async ({ commit }, { tareaDetails, progress, duration, time }) => {
+    requestStopWork: async ({ commit }, { tareaDetails }) => {
       await commit("STOP_WORK", tareaDetails);
       //workingTimes
-      commit("STOP_PROGRESS_DATA_IN_TAREA", { tareaDetails, progress, duration, time, status: workStatus.STOPPED, color: "disabled" });
+      // commit("STOP_PROGRESS_DATA_IN_TAREA", { tareaDetails, progress, duration, time, status: workStatus.STOPPED, color: "disabled" });
     },
     addItemInProgressData: ({ commit }, { duration, time, status, color }) => {
       commit("ADD_PROGRESS_DATA", { progress: 0, duration, time, status, color });

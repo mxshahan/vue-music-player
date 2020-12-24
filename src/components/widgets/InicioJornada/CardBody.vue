@@ -37,7 +37,7 @@
       </v-row>
     </v-col>
     <v-col cols="3" align-self="center" class="text-right pr-6">
-      <v-menu rounded="rounded" offset-y>
+      <v-menu style="z-index: 200;" rounded="rounded" offset-y>
         <template v-slot:activator="{ attrs, on }">
           <v-btn
             :disabled="$store.state.selectedTarea === null"

@@ -1,12 +1,11 @@
 <template>
   <div>
-    <!--    {{progressData}}-->
     <div id="time-tracker" v-if="progressData.length !== 0" :style="`grid-template-columns: ${getProgressLength};`">
       <v-tooltip bottom color="dattechs_black_2" v-for="(data, index) in progressData" :key="index">
         <template v-slot:activator="{ on, attrs }">
           <!--            :class="{ 'ml-n2': index > 0 }"-->
           <v-progress-linear
-            :style="`z-index: ${8 - index};  margin-left: ${-5 * index + 'px !important;'} width: ${(100+index)  + '% !important;'}`"
+            :style="`z-index: ${200 - index};  margin-left: ${-5 * index + 'px !important;'} width: ${(100+index)  + '% !important;'}`"
             class="cursor-pointer"
             v-bind="attrs"
             v-on="on"
