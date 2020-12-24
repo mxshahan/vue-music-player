@@ -22,12 +22,7 @@
         remaining-time="1h 30min"
       />
       <div v-if="$store.state.selectedTarea !== null">
-        <TareaCard
-          v-for="(task, index) in $store.state.startedTarea"
-          :key="index"
-          :tarea-details="task"
-          :position="index"
-        />
+        <TareaCard v-for="(task, index) in $store.state.startedTarea" :key="index" :tarea-details="task" :position="index" />
       </div>
     </v-col>
   </v-row>
@@ -54,6 +49,11 @@ export default {
   },
   created() {
     let { shifts, cliente, proyecto, servicio, tarea } = DATA_SOURCE;
+    shifts.forEach(shift => {
+      shift.startTime = this.moment(shifts[0].startTimeInMilli).format("hh:mm");
+      shift.endTime = this.moment(shifts[0].endTimeInMilli).format("hh:mm");
+    });
+
     this.shifts = shifts;
     this.cliente = cliente;
     this.proyecto = proyecto;
