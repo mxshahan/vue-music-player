@@ -1,6 +1,6 @@
 <template>
   <div>
-<!--    {{progressData}}-->
+    <!--    {{progressData}}-->
     <div id="time-tracker" v-if="progressData.length !== 0" :style="`grid-template-columns: ${getProgressLength};`">
       <v-tooltip bottom color="dattechs_black_2" v-for="(data, index) in progressData" :key="index">
         <template v-slot:activator="{ on, attrs }">

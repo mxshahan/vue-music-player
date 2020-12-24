@@ -5,10 +5,10 @@
       <div class="pt-2">
         <span v-if="!isOverTime" class="float-left black--text">{{ currentDuration }}</span>
         <span v-else class="float-left error--text"
-          >+ {{ currentDuration }}
+        >+ {{ currentDuration }}
           <v-btn class="pb-1 ml-1" width="16" height="16" disabled icon>
             <v-img width="16" height="16" src="@/assets/icons/ic_info_warning.svg"
-          /></v-btn>
+            /></v-btn>
         </span>
         <span class="float-right black--text">{{ getDayWorkDuration }}</span>
       </div>
@@ -80,30 +80,30 @@ export default {
   methods: {
     ...mapActions(["addItemInProgressData", "updateItemInProgressData", "updateProgressDataInTarea"]),
     updateCurrentTime() {
-      let duration;
+      let duration, timerDuration;
       if (this.isMainProgress) {
         if (new Date().getTime() > this.shifts[0].endTimeInMilli) {
           this.isOverTime = true;
-          // bus.$emit("updateIsOverTime", true);
-          duration = new Date().getTime() - this.shifts[0].endTimeInMilli;
+          duration = timerDuration = new Date().getTime() - this.shifts[0].endTimeInMilli;
           this.updateWorkTimesAndDuration(this.shifts[0].endTimeInMilli, new Date().getTime(), duration);
-          console.log("duration -- shift over", duration);
+          console.log("main duration -- shift over", duration);
         } else if (this.$store.state.userCurrentStatus.initialWorkStartTime === -1) {
-          duration = new Date().getTime() - this.shifts[0].startTimeInMilli;
+          duration = timerDuration = new Date().getTime() - this.shifts[0].startTimeInMilli;
           this.updateWorkTimesAndDuration(this.shifts[0].startTimeInMilli, new Date().getTime(), duration);
-          console.log("duration -- in shift work not started", duration);
+          console.log("main duration -- in shift work not started", duration);
         } else {
           duration = new Date().getTime() - this.$store.state.userCurrentStatus.initialWorkStartTime;
-          this.updateWorkTimesAndDuration(this.$store.state.userCurrentStatus.initialWorkStartTime, new Date().getTime(), duration);
-          console.log("duration -- in shift work started", duration);
+          timerDuration = new Date().getTime() - this.shifts[0].startTimeInMilli
+          this.updateWorkTimesAndDuration(this.shifts[0].startTimeInMilli, new Date().getTime(), duration);
+          console.log("main duration -- in shift work started", duration);
         }
       } else {
+        console.log("tarea duration -- in shift work started", duration);
         if (this.tareaDetails.workingTimes.length === 0 || this.$store.state.userCurrentStatus.state === workStatus.STOPPED) return;
-        duration = new Date().getTime() - this.tareaDetails.workingTimes[this.tareaDetails.workingTimes.length - 1].startTime;
+        duration = timerDuration = new Date().getTime() - this.tareaDetails.workingTimes[this.tareaDetails.workingTimes.length - 1].startTime;
       }
 
-      let { hours, minutes, seconds } = this.getTimeInHourMinSec(duration);
-
+      let { hours, minutes, seconds } = this.getTimeInHourMinSec(timerDuration);
       this.currentDuration = hours + ":" + minutes + ":" + seconds;
       // TODO:: fix progress after exceeding time
       this.currentProgress = this.getProgress(this.$store.state.shifts[0].endTimeInMilli - this.$store.state.shifts[0].startTimeInMilli, duration);
