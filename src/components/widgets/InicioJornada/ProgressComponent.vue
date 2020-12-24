@@ -1,5 +1,6 @@
 <template>
   <div>
+<!--    {{progressData}}-->
     <div id="time-tracker" v-if="progressData.length !== 0" :style="`grid-template-columns: ${getProgressLength};`">
       <v-tooltip bottom color="dattechs_black_2" v-for="(data, index) in progressData" :key="index">
         <template v-slot:activator="{ on, attrs }">
@@ -18,9 +19,9 @@
         </template>
         <v-row>
           <v-col align="center" class="py-0 px-3">
-            <span class="body-2 font-weight-medium"> {{ parada }}</span>
+            <span class="body-2 font-weight-medium"> {{ progressData[index].time }}</span>
             <br />
-            <span class="caption">({{ workDuration }})</span>
+            <span class="caption">({{ progressData[index].duration }})</span>
             <v-img v-if="data.status !== leave" width="16" height="16" src="@/assets/icons/ic_message_read.svg" />
           </v-col>
         </v-row>

@@ -130,7 +130,8 @@ export default new Vuex.Store({
         console.log("OPERATION FAILED!!! Tarea not found by ID: ", tareaId);
       }
     },
-    STOP_WORK: (state, { tareaDetails }) => {
+    STOP_WORK: (state, tareaDetails ) => {
+      console.log('STOP_WORK----->>', tareaDetails);
       const index = state.startedTarea.findIndex(tarea => tarea.id === tareaDetails.id);
       if (index !== -1) {
         const len = state.startedTarea[index].workingTimes.length;
@@ -188,7 +189,6 @@ export default new Vuex.Store({
     },
     requestStopWork: async ({ commit }, { tareaDetails, progress, duration, time }) => {
       await commit("STOP_WORK", tareaDetails);
-      await commit("UPDATE_USER_CURRENT_STATUS_ON_STOP_TAREA", tareaDetails);
       //workingTimes
       commit("STOP_PROGRESS_DATA_IN_TAREA", { progress, duration, time, status: workStatus.STOPPED, color: "disabled" });
     },
