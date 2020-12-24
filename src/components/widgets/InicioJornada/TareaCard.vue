@@ -49,16 +49,23 @@
         </v-menu>
       </v-col>
     </v-row>
-    <MultiTimerProgress :progress-data="progressData" />
-    <DialogIncidencia :tarea-id="tareaDetails.id"/>
+    <MultiTimerProgress
+      :is-main-progress="false"
+      :shifts="$store.state.shifts"
+      :tarea-details="tareaDetails"
+      :progress-data="tareaDetails.progressData"
+    />
+    <DialogIncidencia :tarea-details="tareaDetails" />
   </v-card>
 </template>
 
 <script>
 import { bus } from "@/main";
 import DialogIncidencia from "@/components/widgets/InicioJornada/dialogs/DialogIncidencia";
-import { mapActions } from 'vuex'
+import { mapActions } from "vuex";
 import MultiTimerProgress from "@/components/widgets/InicioJornada/MultiTimerProgress";
+import TimeTrackerMixins from "@/mixins/TimeTrackerMixins";
+import { workStatus } from "@/helper/constants";
 
 export default {
   name: "TareaCard",
@@ -72,33 +79,11 @@ export default {
       required: true
     }
   },
+  mixins: [TimeTrackerMixins],
   components: { MultiTimerProgress, DialogIncidencia },
   data() {
     return {
-      play: false,
-      progressData: [
-        {
-          progress: 10,
-          duration: "1h 00min",
-          time: "9:20-10:30",
-          status: "late",
-          color: "disabled"
-        },
-        {
-          progress: 20,
-          duration: "2h 00min",
-          time: "10:30-12:30",
-          status: "leave",
-          color: "colorLeave"
-        },
-        {
-          progress: 25,
-          duration: "2h 30min",
-          time: "12:30-3:00",
-          status: "working",
-          color: "primary"
-        }
-      ]
+      play: false
     };
   },
   created() {
@@ -106,6 +91,24 @@ export default {
       console.log("tareaTimerPaused---->>", data);
       this.play = !data;
     });
+  },
+  computed: {
+    updateProgressData() {
+      console.log("tarea updateProgressData-->");
+      let progressList = [];
+      // : [ { "startTime": "2020-12-23T06:40:02.173Z", "stopTime": 0, "status": "working" } ]
+      this.tareaDetails.workingTimes.forEach(session => {
+        console.log("session---->>>", session);
+        progressList.push({
+          progress: 25,
+          duration: "2h 30min",
+          time: "12:30-3:00",
+          status: "working",
+          color: "primary"
+        });
+      });
+      return progressList;
+    }
   },
   methods: {
     ...mapActions(["requestStartWork"]),
@@ -115,13 +118,30 @@ export default {
     startWork() {
       if (!this.play) {
         //start work
-        console.log("start work-->", this.tareaDetails);
         this.play = true;
-        this.requestStartWork({ tareaId: this.tareaDetails.id });
-        // this.$store.commit("START_WORK", this.tareaDetails.id);
+        console.log("start work-->", this.tareaDetails);
+
+        let currentState = this.$store.state.progressData[this.$store.state.progressData.length - 1];
+        console.log("currentState---->", currentState);
+        let currentProgress = currentState.progress;
+        let time = "9:20-10:30";
+        let status = workStatus.WORKING;
+        let color = this._getColorBasedOnStatus(status);
+
+        this.requestStartWork({
+          tareaId: this.tareaDetails.id,
+          currentProgress,
+          progress: currentProgress + 1,
+          duration: currentProgress.duration,
+          time,
+          status,
+          color
+        });
+        bus.$emit("work_started", this.tareaDetails);
       } else {
         //already working
         console.log("already working: -->", this.tareaDetails);
+        bus.$emit("work_stopped", this.tareaDetails);
       }
     }
   }

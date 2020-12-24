@@ -14,7 +14,11 @@
         :tarea="tarea"
         :hasMultipleShift="shifts.length > 1"
       />
-      <MultiTimerProgress :progress-data="progressData" :is-over-time="false" />
+      <MultiTimerProgress
+          :is-main-progress="isMainProgress"
+          :shifts="shifts"
+          :progress-data="$store.state.progressData"
+      />
     </v-card-text>
     <DialogFinalizarJordana :remaining-time="remainingTime" />
     <DialogParada />
@@ -35,31 +39,39 @@ export default {
   components: { Snackbar, MultiTimerProgress, DialogFinalizarJordana, DialogParada, CardBody, CardHeader },
   props: {
     cardTitle: {
-      type: String
+      type: String,
+      required: true
     },
     date: {
-      type: String
+      type: String,
+      required: true
     },
     shifts: {
-      type: Array
+      type: Array,
+      required: true
     },
     isStartWorkLate: {
       type: Boolean
     },
-    isOverTime: {
-      type: Boolean
-    },
     cliente: {
-      type: Array
+      type: Array,
+      required: true
     },
     proyecto: {
-      type: Array
+      type: Array,
+      required: true
     },
     servicio: {
-      type: Array
+      type: Array,
+      required: true
     },
     tarea: {
-      type: Array
+      type: Array,
+      required: true
+    },
+    isMainProgress: {
+      type: Boolean,
+      required: true
     },
     progressData: {
       type: Array,

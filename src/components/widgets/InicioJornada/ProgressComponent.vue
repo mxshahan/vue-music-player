@@ -5,7 +5,7 @@
         <template v-slot:activator="{ on, attrs }">
           <!--            :class="{ 'ml-n2': index > 0 }"-->
           <v-progress-linear
-            :style="`z-index: ${9 - index};  margin-left: ${-5 * index + 'px !important;'} width: ${102 + (5 * index) + '% !important;'}`"
+            :style="`z-index: ${9 - index};  margin-left: ${-3 * index + 'px !important;'} width: ${100 + (3 * index) + '% !important;'}`"
             class="cursor-pointer"
             v-bind="attrs"
             v-on="on"
@@ -18,13 +18,14 @@
         </template>
         <v-row>
           <v-col align="center" class="py-0 px-3">
-            <span class="body-2 font-weight-medium">{{ data.duration }}</span>
+            <span class="body-2 font-weight-medium"> {{ parada }}</span>
             <br />
-            <span class="caption">({{ data.time }})</span>
+            <span class="caption">({{ workDuration }})</span>
             <v-img v-if="data.status !== leave" width="16" height="16" src="@/assets/icons/ic_message_read.svg" />
           </v-col>
         </v-row>
-        <v-img style="position: absolute; top: 0;left: 47%;  margin-top: -4px;" width="10" height="4" src="@/assets/icons/bg_tooltip_tail.svg" />
+        <v-img style="position: absolute; top: 0;left: 47%;  margin-top: -4px;" width="10" height="4"
+               src="@/assets/icons/bg_tooltip_tail.svg" />
       </v-tooltip>
     </div>
     <div v-else>
@@ -42,6 +43,17 @@ export default {
     progressData: {
       type: Array,
       required: true
+    },
+    parada: {
+      type: String
+    },
+    workTimes: {
+      type: String,
+      required: true
+    },
+    workDuration: {
+      type: String,
+      required: true
     }
   },
   data() {
@@ -53,11 +65,8 @@ export default {
     getProgressLength() {
       let gridColumnsSizes = "";
       let sumOfProgress = 100;
-      // this.progressData.forEach(data => {
-      //   sumOfProgress += data.progress;
-      // });
       this.progressData.forEach(data => {
-        gridColumnsSizes += (data.progress / sumOfProgress).toFixed(1).toString() + "fr ";
+        gridColumnsSizes += (data.progress / sumOfProgress).toString() + "fr ";
       });
       return gridColumnsSizes;
     }

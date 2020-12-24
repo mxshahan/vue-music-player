@@ -42,16 +42,16 @@
 
 <script>
 import { bus } from "@/main";
-import { workStatus } from "@/helper/constants";
 import SelectComponent from "@/components/widgets/InicioJornada/SelectComponent";
 import ImageFileInputComponent from "@/components/widgets/InicioJornada/ImageFileInputComponent";
+import { mapActions } from "vuex";
 
 export default {
   name: "DialogIncidencia",
   components: { ImageFileInputComponent, SelectComponent },
   props: {
-    tareaId: {
-      type: Number,
+    tareaDetails: {
+      type: Object,
       required: true
     }
   },
@@ -72,6 +72,7 @@ export default {
     });
   },
   methods: {
+    ...mapActions(["requestStopWork"]),
     onSelectTipoDeIncidencia(tipoDeIncidencia) {
       this.selectedTipoDeIncidencia = tipoDeIncidencia;
     },
@@ -84,7 +85,8 @@ export default {
     },
     stopTareaTimerAndCloseDialog() {
       console.log("stopping tareaId---->", this.tareaId);
-      this.$store.commit("STOP_WORK", { tareaId: this.tareaId, workStatus: workStatus.STOPPED });
+      // this.$store.commit("STOP_WORK", { tareaId: this.tareaId, workStatus: workStatus.STOPPED });
+      this.requestStopWork({ tareaId: this.tareaDetails.id, progress: 20, duration: "1h 20min", time: "time" });
       bus.$emit("tareaTimerPaused", true);
       this.dialog = !this.dialog;
     }

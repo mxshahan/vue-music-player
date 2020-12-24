@@ -4,12 +4,13 @@ import router from "./router";
 import store from "./store";
 import vuetify from "./plugins/vuetify";
 import VueTimers from "vue-timers";
-import VueMoment from "vue-timers";
 import "@fortawesome/fontawesome-free/css/all.css";
 import "@fortawesome/fontawesome-free/js/all.js";
+import moment from "moment";
+Vue.prototype.moment = moment;
 
 Vue.use(VueTimers);
-Vue.use(VueMoment);
+Vue.use(require("vue-moment"));
 Vue.config.productionTip = false;
 
 new Vue({

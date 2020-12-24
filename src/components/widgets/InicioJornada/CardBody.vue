@@ -3,14 +3,17 @@
     <v-col>
       <v-row>
         <v-col class="py-0">
-          <SelectComponent label="Cliente" :items="cliente" v-on:select="onSelectCliente($event)" />
+          <SelectComponent
+            label="Cliente"
+            :items="cliente"
+            v-on:select="onSelectCliente($event)" />
         </v-col>
         <v-col class="py-0">
           <SelectComponent
             label="Proyecto"
             :items="proyecto"
-            v-on:select="onSelectProyecto($event)"
             :disabled="$store.state.selectedCliente === ''"
+            v-on:select="onSelectProyecto($event)"
           />
         </v-col>
       </v-row>
@@ -19,12 +22,17 @@
           <SelectComponent
             label="Servicio"
             :items="servicio"
-            v-on:select="onSelectServicio($event)"
             :disabled="$store.state.selectedProyecto === ''"
+            v-on:select="onSelectServicio($event)"
           />
         </v-col>
         <v-col class="py-0">
-          <SelectComponent label="Tarea" :items="tarea" v-on:select="onSelectTarea($event)" :disabled="$store.state.selectedServicio === ''" />
+          <SelectComponent
+            label="Tarea"
+            :items="tarea"
+            :disabled="$store.state.selectedServicio === ''"
+            v-on:select="onSelectTarea($event)"
+          />
         </v-col>
       </v-row>
     </v-col>
@@ -33,7 +41,7 @@
         <template v-slot:activator="{ attrs, on }">
           <v-btn
             :disabled="$store.state.selectedTarea === null"
-            v-if="!play"
+            v-if="$store.state.userCurrentStatus.status !== 'working'"
             height="42"
             width="42"
             icon
@@ -43,8 +51,10 @@
             @click="play = !play"
           >
             <v-icon size="28">mdi-play</v-icon>
+<!--            <v-img v-else src="@/assets/icons/ic_menu_active.svg" />-->
           </v-btn>
-          <v-btn v-else height="42" width="42" icon class="play-btn-style" :color="!play ? 'primary' : '#FB4E4E'" outlined v-bind="attrs" v-on="on">
+          <v-btn v-else height="42" width="42" icon class="play-btn-style" :color="!play ? 'primary' : '#FB4E4E'"
+                 outlined v-bind="attrs" v-on="on">
             <v-icon size="28">mdi-stop</v-icon>
           </v-btn>
         </template>
@@ -91,7 +101,8 @@
           </v-btn>
         </template>
         <span>Historial</span>
-        <v-img style="position: absolute; top: 0;left: 47%;  margin-top: -4px;" width="10" height="4" src="@/assets/icons/bg_tooltip_tail.svg" />
+        <v-img style="position: absolute; top: 0;left: 47%;  margin-top: -4px;" width="10" height="4"
+               src="@/assets/icons/bg_tooltip_tail.svg" />
       </v-tooltip>
     </v-col>
   </v-row>

@@ -7,7 +7,7 @@
     <v-col align="right" cols="8" class="pt-0">
       <v-btn text small disabled>
         <v-img src="@/assets/icons/ic_calendar.svg" class="mr-1" />
-        <span class="dattechs_black_3--text font-weight-light" style="padding-top: 2px;">{{ date }}</span>
+        <span class="dattechs_black_3--text font-weight-light" style="padding-top: 2px;">{{ moment(shifts[0].startTimeInMilli).format("DD/MM/YYYY") }}</span>
       </v-btn>
       <v-tooltip bottom color="dattechs_black_2">
         <template v-slot:activator="{ on, attrs }">
@@ -18,8 +18,7 @@
               class="font-weight-light"
               :class="{ 'dattechs_black_3--text': !isStartWorkLate, 'error--text': isStartWorkLate }"
               style="padding-top: 2px;"
-              >{{ shifts[0].startTime }} - {{ shifts[0].endTime }}</span
-            >
+              >{{ moment(shifts[0].startTimeInMilli).format("hh:mm") }} - {{ moment(shifts[0].endTimeInMilli).format("hh:mm") }}</span>
           </v-btn>
         </template>
         <HorarioHabitual :shifts="shifts" />

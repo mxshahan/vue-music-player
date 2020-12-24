@@ -1,22 +1,33 @@
 <template>
   <v-row>
     <v-col align-self="center" align="center">
+<!--      <h4>Store Data</h4>-->
+<!--      <p class="caption"><strong>userCurrentStatus:</strong> {{ $store.state.userCurrentStatus }}</p>-->
+<!--      <p class="caption"><strong>progressData:</strong> {{ $store.state.progressData }}</p>-->
+<!--      <p class="caption"><strong>startedTarea:</strong> {{ $store.state.startedTarea }}</p>-->
+<!--      <hr />-->
+<!--      <br />-->
+<!--      <br />-->
       <InicioJornadaMain
         card-title="Inicio de jornada"
-        date="09/4/2020"
+        :date="currentDate"
         :shifts="shifts"
         :isStartWorkLate="isStartWorkLate"
         :cliente="cliente"
         :proyecto="proyecto"
         :servicio="servicio"
         :tarea="tarea"
-        :is-over-time="true"
         :progress-data="progressData"
+        :is-main-progress="true"
         remaining-time="1h 30min"
       />
       <div v-if="$store.state.selectedTarea !== null">
-        <TareaCard v-for="(task, index) in $store.state.startedTarea" :key="index" :tarea-details="task"
-                   :position="index" />
+        <TareaCard
+          v-for="(task, index) in $store.state.startedTarea"
+          :key="index"
+          :tarea-details="task"
+          :position="index"
+        />
       </div>
     </v-col>
   </v-row>
@@ -25,95 +36,60 @@
 <script>
 import InicioJornadaMain from "@/components/widgets/InicioJornada/Main";
 import TareaCard from "@/components/widgets/InicioJornada/TareaCard";
+import { DATA_SOURCE } from "@/dummyData/dataSource";
 
 export default {
   name: "InicioJornada",
   components: { TareaCard, InicioJornadaMain },
   data() {
     return {
-      currentTime: "",
-      shifts: [
-        {
-          symbol: "M",
-          symbolColor: "#7ACFEE",
-          startTime: "09:10",
-          endTime: "15:10"
-        },
-        {
-          symbol: "T",
-          symbolColor: "#1197D8",
-          startTime: "16:00",
-          endTime: "18:00"
-        }
-      ],
-      isStartWorkLate: true,
-      cliente: ["Telefónica", "IZO"],
-      proyecto: ["Endesa CAT"],
-      servicio: ["E-REDES"],
-      tarea: ["Auditoría", "Verificación", "Encuesta", "Emisión"],
-      progressData: [
-        {
-          progress: 10,
-          duration: "1h 00min",
-          time: "9:20-10:30",
-          status: "late",
-          color: "disabled"
-        },
-        {
-          progress: 10,
-          duration: "1h 00min",
-          time: "10:30-11:50",
-          status: "working",
-          color: "primary"
-        },
-        {
-          progress: 10,
-          duration: "55min",
-          time: "11:50-12:40",
-          status: "paused",
-          color: "warning"
-        },
-        {
-          progress: 20,
-          duration: "2h 20min",
-          time: "12:40-2:50",
-          status: "stopped",
-          color: "error"
-        },
-        {
-          progress: 10,
-          duration: "45min",
-          time: "2:50-3:50",
-          status: "working",
-          color: "primary"
-        },
-        {
-          progress: 20,
-          duration: "2h 30min",
-          time: "3:50-5:20",
-          status: "stopped",
-          color: "error"
-        },
-        {
-          progress: 20,
-          duration: "2h 20min",
-          time: "05:20-8:00",
-          status: "working",
-          color: "primary"
-        }
-      ]
+      shifts: [],
+      cliente: [],
+      proyecto: [],
+      servicio: [],
+      tarea: [],
+      progressData: [],
+      isStartWorkLate: false
     };
   },
-  timers: {
-    updateCurrentTime: {
-      time: 1000,
-      autostart: true
+  created() {
+    let { shifts, cliente, proyecto, servicio, tarea } = DATA_SOURCE;
+    this.shifts = shifts;
+    this.cliente = cliente;
+    this.proyecto = proyecto;
+    this.servicio = servicio;
+    this.tarea = tarea;
+
+    this.progressData = this.getSummaryProgressData;
+
+    console.log(new Date().getTime());
+  },
+  computed: {
+    currentDate() {
+      return this.moment()
+        .subtract(10, "days")
+        .calendar();
+    },
+    getSummaryProgressData() {
+      if (this.$store.state.userCurrentStatus.initialWorkStartTime === -1) {
+        console.log("getProgressData--> work not started");
+
+        return [
+          {
+            progress: 10,
+            duration: "1h 00min",
+            time: "9:20-10:30",
+            status: "late",
+            color: "disabled"
+          }
+        ];
+      } else {
+        // work started
+        console.log("getProgressData--> work started");
+        return [];
+      }
     }
   },
-  methods: {
-    updateCurrentTime() {
-      this.currentTime = new Date().getTime();
-    }
-  }
+  methods: {}
 };
 </script>
