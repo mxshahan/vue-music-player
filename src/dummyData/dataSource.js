@@ -3,8 +3,8 @@ export const DATA_SOURCE = {
     {
       symbol: "M",
       symbolColor: "#7ACFEE",
-      startTimeInMilli: 1608815889121,
-      endTimeInMilli: 1608829889121
+      startTimeInMilli: 1608836160578,
+      endTimeInMilli: 1608841000578
     }
     /*,
     {
