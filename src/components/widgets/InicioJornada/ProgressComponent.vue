@@ -18,9 +18,9 @@
         </template>
         <v-row>
           <v-col align="center" class="py-0 px-3">
-            <span class="body-2 font-weight-medium"> {{ progressData[index].time }}</span>
+            <span class="body-2 font-weight-medium"> {{ workDuration }}</span>
             <br />
-            <span class="caption">({{ progressData[index].duration }})</span>
+            <span class="caption">({{ workTimes }})</span>
             <v-img v-if="data.status !== leave" width="16" height="16" src="@/assets/icons/ic_message_read.svg" />
           </v-col>
         </v-row>

@@ -132,6 +132,7 @@ export default {
         timerDuration =
           this.getTareaDurations() + new Date().getTime() - this.tareaDetails.workingTimes[this.tareaDetails.workingTimes.length - 1].startTime;
         // console.log("tarea duration -- in shift work started", duration);
+        this.updateWorkTimesAndDuration(this.tareaDetails.workingTimes[this.tareaDetails.workingTimes.length - 1], new Date().getTime(), duration);
       }
 
       let { hours, minutes, seconds } = this.getTimeInHourMinSec(timerDuration);
@@ -139,7 +140,7 @@ export default {
       // TODO:: fix progress after exceeding time
       this.currentProgress = this.getProgress(this.$store.state.shifts[0].endTimeInMilli - this.$store.state.shifts[0].startTimeInMilli, duration);
 
-      this.getProgressData();
+      await this.getProgressData();
 
       // if(new Date().getTime() > this.$store.state.shifts[0].endTimeInMilli &&
       //   (this.$store.state.userCurrentStatus.status === workStatus.NOT_STARTED ||

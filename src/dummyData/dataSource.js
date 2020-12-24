@@ -4,7 +4,7 @@ export const DATA_SOURCE = {
       symbol: "M",
       symbolColor: "#7ACFEE",
       startTimeInMilli: 1608847398934,
-      endTimeInMilli: 1608848398934
+      endTimeInMilli: 1608977398934
     }
     /*,
     {
