@@ -1,10 +1,12 @@
 <template>
   <v-row>
     <v-col align-self="center" align="center">
-<!--      <h4>Store Data</h4>-->
-<!--      <p class="caption"><strong>userCurrentStatus:</strong> {{ $store.state.userCurrentStatus }}</p>-->
-<!--      <p class="caption"><strong>progressData:</strong> {{ $store.state.progressData }}</p>-->
-<!--      <p class="caption"><strong>startedTarea:</strong> {{ $store.state.startedTarea }}</p>-->
+      <h4>Store Data</h4>
+      <p class="caption"><strong>userCurrentStatus:</strong> {{ $store.state.userCurrentStatus }}</p>
+      <p>Progress Data Length: {{$store.state.progressData.length}}</p>
+      <p class="caption"><strong>progressData:</strong> {{ $store.state.progressData }}</p>
+      <p v-if="$store.state.startedTarea.length > 0">Tarea Progress Data Length: {{ $store.state.startedTarea[0].progressData.length}}</p>
+      <p class="caption" v-if="$store.state.startedTarea.length > 0"><strong>startedTarea:</strong> {{ $store.state.startedTarea[0].progressData }}</p>
 <!--      <hr />-->
 <!--      <br />-->
 <!--      <br />-->

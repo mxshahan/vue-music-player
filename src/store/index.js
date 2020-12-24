@@ -49,19 +49,19 @@ export default new Vuex.Store({
       const index = state.startedTarea.findIndex(tarea => tarea.id === payload.tareaId);
       if (index !== -1) {
         const id = state.startedTarea[index].progressData.length;
-        console.log("ADD_PROGRESS_DATA_IN_TAREA--->>", payload);
-        if (state.startedTarea[index].progressData.length === 0) {
-          state.startedTarea[index].progressData.push({
-            id,
-            ...payload,
-            status: state.progressData[state.progressData.length - 1].status,
-            color:
-              state.progressData[state.progressData.length - 1].color === "disabled"
-                ? "dattechs_black_5"
-                : state.progressData[state.progressData.length - 1].color
-          });
-          payload.progress = 0;
-        }
+        console.log("ADD_PROGRESS_DATA_IN_TAREA--- adding>>");
+
+        state.startedTarea[index].progressData.push({
+          id,
+          ...payload,
+          status: state.progressData[state.progressData.length - 1].status,
+          color:
+            state.progressData[state.progressData.length - 1].color === "disabled"
+              ? "dattechs_black_5"
+              : state.progressData[state.progressData.length - 1].color
+        });
+        payload.progress = 0;
+
         state.startedTarea[index].progressData.push({ id, ...payload });
       } else {
         console.log("ADD_PROGRESS_DATA_IN_TAREA FAILED!!! Tarea not found by ID: ", payload.tareaId);
@@ -78,7 +78,8 @@ export default new Vuex.Store({
       }
     },
     STOP_PROGRESS_DATA_IN_TAREA: (state, payload) => {
-      const index = state.startedTarea.findIndex(tarea => tarea.id === payload.tareaId);
+      console.log("STOP_PROGRESS_DATA_IN_TAREA--->>", payload);
+      const index = state.startedTarea.findIndex(tarea => tarea.id === payload.tareaDetails.id);
       if (index !== -1) {
         console.log("STOP_PROGRESS_DATA_IN_TAREA--->>", payload);
         // todo:: UPDATE STATUS OF TAREA
@@ -130,8 +131,8 @@ export default new Vuex.Store({
         console.log("OPERATION FAILED!!! Tarea not found by ID: ", tareaId);
       }
     },
-    STOP_WORK: (state, tareaDetails ) => {
-      console.log('STOP_WORK----->>', tareaDetails);
+    STOP_WORK: (state, tareaDetails) => {
+      console.log("STOP_WORK----->>", tareaDetails);
       const index = state.startedTarea.findIndex(tarea => tarea.id === tareaDetails.id);
       if (index !== -1) {
         const len = state.startedTarea[index].workingTimes.length;
@@ -189,7 +190,7 @@ export default new Vuex.Store({
     requestStopWork: async ({ commit }, { tareaDetails, progress, duration, time }) => {
       await commit("STOP_WORK", tareaDetails);
       //workingTimes
-      commit("STOP_PROGRESS_DATA_IN_TAREA", { progress, duration, time, status: workStatus.STOPPED, color: "disabled" });
+      commit("STOP_PROGRESS_DATA_IN_TAREA", { tareaDetails, progress, duration, time, status: workStatus.STOPPED, color: "disabled" });
     },
     addItemInProgressData: ({ commit }, { duration, time, status, color }) => {
       commit("ADD_PROGRESS_DATA", { progress: 0, duration, time, status, color });
