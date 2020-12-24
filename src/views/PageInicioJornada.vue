@@ -1,13 +1,13 @@
 <template>
   <v-row>
     <v-col align-self="center" align="center">
-<!--      <h4>Store Data</h4>
-      <p class="caption"><strong>userCurrentStatus:</strong> {{ $store.state.userCurrentStatus }}</p>
-      <p class="caption"><strong>progressData:</strong> {{ $store.state.progressData }}</p>
-      <p class="caption"><strong>startedTarea:</strong> {{ $store.state.startedTarea }}</p>
-      <hr />
-      <br />
-      <br />-->
+<!--      <h4>Store Data</h4>-->
+<!--      <p class="caption"><strong>userCurrentStatus:</strong> {{ $store.state.userCurrentStatus }}</p>-->
+<!--      <p class="caption"><strong>progressData:</strong> {{ $store.state.progressData }}</p>-->
+<!--      <p class="caption"><strong>startedTarea:</strong> {{ $store.state.startedTarea }}</p>-->
+<!--      <hr />-->
+<!--      <br />-->
+<!--      <br />-->
       <InicioJornadaMain
         card-title="Inicio de jornada"
         :date="currentDate"

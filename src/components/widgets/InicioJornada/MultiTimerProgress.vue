@@ -3,12 +3,14 @@
     <v-flex>
       <ProgressComponent :progress-data="progressData" :work-times="workTimes" :work-duration="workDuration" />
       <div class="pt-2">
-        <span v-if="!isOverTime" class="float-left black--text">{{ currentDuration }}</span>
+        <span v-if="!isOverTime" class="float-left black--text" :class="{ 'disabled--text': tareaDetails !== undefined && tareaDetails.status === 'not_started' }">{{
+          currentDuration
+        }}</span>
         <span v-else class="float-left error--text"
-        >+ {{ currentDuration }}
+          >+ {{ currentDuration }}
           <v-btn class="pb-1 ml-1" width="16" height="16" disabled icon>
             <v-img width="16" height="16" src="@/assets/icons/ic_info_warning.svg"
-            /></v-btn>
+          /></v-btn>
         </span>
         <span class="float-right black--text">{{ getDayWorkDuration }}</span>
       </div>
@@ -47,7 +49,8 @@ export default {
   data() {
     return {
       isOverTime: false,
-      currentDuration: "",
+      currentDuration: "00:00:00",
+      tareaDurationInMilli: 0,
       currentProgress: 0,
       workTimes: "",
       workDuration: ""
@@ -93,14 +96,22 @@ export default {
           console.log("main duration -- in shift work not started", duration);
         } else {
           duration = new Date().getTime() - this.$store.state.userCurrentStatus.initialWorkStartTime;
-          timerDuration = new Date().getTime() - this.shifts[0].startTimeInMilli
+          timerDuration = new Date().getTime() - this.shifts[0].startTimeInMilli;
           this.updateWorkTimesAndDuration(this.shifts[0].startTimeInMilli, new Date().getTime(), duration);
           console.log("main duration -- in shift work started", duration);
         }
       } else {
         console.log("tarea duration -- in shift work started", duration);
-        if (this.tareaDetails.workingTimes.length === 0 || this.$store.state.userCurrentStatus.state === workStatus.STOPPED) return;
-        duration = timerDuration = new Date().getTime() - this.tareaDetails.workingTimes[this.tareaDetails.workingTimes.length - 1].startTime;
+        if (
+          this.tareaDetails.workingTimes.length === 0 ||
+          (this.tareaDetails.status === workStatus.STOPPED && this.timers.updateCurrentTime.isRunning)
+        ) {
+          return;
+        }
+        console.log("getTareaDurations", this.getTareaDurations());
+        duration = new Date().getTime() - this.tareaDetails.workingTimes[this.tareaDetails.workingTimes.length - 1].startTime;
+        timerDuration =
+          this.getTareaDurations() + new Date().getTime() - this.tareaDetails.workingTimes[this.tareaDetails.workingTimes.length - 1].startTime;
       }
 
       let { hours, minutes, seconds } = this.getTimeInHourMinSec(timerDuration);
@@ -166,6 +177,18 @@ export default {
         // work started
         await this.updateProgressDataInTarea({ tareaId: this.tareaDetails.id, progress, duration, time });
       }
+    },
+    getTareaDurations() {
+      let tareaDuration = 0;
+      if (this.tareaDetails.workingTimes.length > 1) {
+        this.tareaDetails.workingTimes.forEach(tarea => {
+          console.log("getTareaDurations startTime", tarea.startTime);
+          console.log("getTareaDurations endTime", tarea.stopTime);
+          if (tarea.stopTime !== 0) tareaDuration += tarea.stopTime - tarea.startTime;
+        });
+      }
+
+      return tareaDuration;
     }
   }
 };
