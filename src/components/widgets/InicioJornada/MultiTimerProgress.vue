@@ -182,8 +182,6 @@ export default {
       let tareaDuration = 0;
       if (this.tareaDetails.workingTimes.length > 1) {
         this.tareaDetails.workingTimes.forEach(tarea => {
-          console.log("getTareaDurations startTime", tarea.startTime);
-          console.log("getTareaDurations endTime", tarea.stopTime);
           if (tarea.stopTime !== 0) tareaDuration += tarea.stopTime - tarea.startTime;
         });
       }

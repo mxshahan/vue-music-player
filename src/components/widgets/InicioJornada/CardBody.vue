@@ -41,7 +41,7 @@
         <template v-slot:activator="{ attrs, on }">
           <v-btn
             :disabled="$store.state.selectedTarea === null"
-            v-if="$store.state.userCurrentStatus.status !== 'working'"
+            v-if="!play"
             height="42"
             width="42"
             icon
