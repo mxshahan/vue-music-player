@@ -140,6 +140,7 @@ export default new Vuex.Store({
           state.startedTarea[index].workingTimes[len - 1].status = workStatus.STOPPED;
           state.startedTarea[index].status = workStatus.STOPPED;
           state.userCurrentStatus.status = workStatus.STOPPED;
+          state.userCurrentStatus.initialWorkStartTime = new Date().getTime();
         } else {
           console.log("OPERATION FAILED!!! Tarea not started.");
         }
@@ -152,9 +153,7 @@ export default new Vuex.Store({
       if (index !== -1) {
         state.userCurrentStatus.tareaId = tareaId;
         state.userCurrentStatus.status = state.startedTarea[index].status;
-        if (state.userCurrentStatus.initialWorkStartTime === -1) {
-          state.userCurrentStatus.initialWorkStartTime = new Date().getTime();
-        }
+        state.userCurrentStatus.initialWorkStartTime = new Date().getTime();
       } else {
         console.log("OPERATION FAILED!!! Tarea not found by ID: ", tareaId);
       }

@@ -125,8 +125,6 @@ export default {
         console.log("currentState---->", currentState);
         let currentProgress = currentState.progress;
         let time = "9:20-10:30";
-        let status = workStatus.WORKING;
-        let color = this._getColorBasedOnStatus(status);
 
         this.requestStartWork({
           tareaId: this.tareaDetails.id,
@@ -134,14 +132,13 @@ export default {
           progress: currentProgress + 1,
           duration: currentProgress.duration,
           time,
-          status,
-          color
+          status: workStatus.WORKING,
+          color: this._getColorBasedOnStatus(workStatus.WORKING)
         });
         bus.$emit("work_started", this.tareaDetails);
       } else {
         //already working
         console.log("already working: -->", this.tareaDetails);
-        bus.$emit("work_stopped", this.tareaDetails);
       }
     }
   }

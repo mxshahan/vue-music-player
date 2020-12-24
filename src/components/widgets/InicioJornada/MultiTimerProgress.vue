@@ -61,8 +61,20 @@ export default {
     bus.$on("work_started", tarea => {
       console.log("work_started---->>", tarea);
     });
-    bus.$on("work_stopped", tarea => {
-      console.log("work_stopped---->>", tarea);
+    bus.$on("work_stopped", async() => {
+      console.log("work_stopped---->>");
+      let progress = this.currentProgress;
+      let duration = this.currentDuration;
+      let time = this.currentDuration;
+      let status = this.$store.state.userCurrentStatus.status;
+      let color = this._getColorBasedOnStatus(status);
+      await this.addItemInProgressData({
+        progress,
+        duration,
+        time,
+        status,
+        color
+      });
     });
   },
   computed: {
@@ -101,17 +113,17 @@ export default {
           console.log("main duration -- in shift work started", duration);
         }
       } else {
-        console.log("tarea duration -- in shift work started", duration);
+
         if (
           this.tareaDetails.workingTimes.length === 0 ||
           (this.tareaDetails.status === workStatus.STOPPED && this.timers.updateCurrentTime.isRunning)
         ) {
           return;
         }
-        console.log("getTareaDurations", this.getTareaDurations());
         duration = new Date().getTime() - this.tareaDetails.workingTimes[this.tareaDetails.workingTimes.length - 1].startTime;
         timerDuration =
           this.getTareaDurations() + new Date().getTime() - this.tareaDetails.workingTimes[this.tareaDetails.workingTimes.length - 1].startTime;
+        console.log("tarea duration -- in shift work started", duration);
       }
 
       let { hours, minutes, seconds } = this.getTimeInHourMinSec(timerDuration);
